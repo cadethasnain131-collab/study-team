@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Study Team</title>
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#3b5bdb">
+<link rel="icon" href="icon-192.png">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;800&family=Figtree:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#eef3f8;--card:#ffffff;--ink:#14213d;--mute:#5b6a82;--line:#d3dce8;--c-lead:#3b5bdb;--c-front:#e8590c;--c-back:#0ca678;--c-db:#ae3ec9;--c-sec:#e03131;color-scheme:light;--shadow:0 8px 24px rgba(20,33,61,.08)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b1324;--card:#15203a;--ink:#e8eefb;--mute:#97a6c1;--line:#2a3a58;color-scheme:dark;--shadow:0 8px 24px rgba(0,0,0,.35)}}
+:root[data-theme="dark"]{--bg:#0b1324;--card:#15203a;--ink:#e8eefb;--mute:#97a6c1;--line:#2a3a58;color-scheme:dark;--shadow:0 8px 24px rgba(0,0,0,.35)}
+*{box-sizing:border-box}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Figtree,system-ui,sans-serif;transition:background .3s,color .3s}
+h1,h2,h3{font-family:'Bricolage Grotesque',system-ui,sans-serif;line-height:1.1;margin:0}
+.wrap{max-width:1080px;margin:0 auto;padding:20px 16px 80px}
+header{padding:32px 0 12px;position:relative}
+.hero{background:linear-gradient(135deg,#3b5bdb 0%,#7048e8 50%,#ae3ec9 100%);color:#fff;border-radius:24px;padding:28px 24px;box-shadow:var(--shadow);overflow:hidden;position:relative}
+.hero::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 80% 20%,rgba(255,255,255,.25),transparent 50%);pointer-events:none}
+.hero h1{font-size:clamp(2rem,6vw,3.6rem);color:#fff}
+.hero p{color:rgba(255,255,255,.9);max-width:60ch;margin:10px 0 0}
+.hero .row{margin-top:14px}
+.badge-pill{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:4px 12px;font-size:.82rem;margin:2px}
+.theme-btn{position:absolute;right:0;top:8px;background:var(--card);border:1px solid var(--line);border-radius:999px;padding:8px 14px;cursor:pointer;font:inherit;font-weight:600;color:var(--ink);box-shadow:var(--shadow)}
+.seats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin:22px 0}
+.seat{border-radius:16px;padding:14px 8px;text-align:center;border:2px dashed var(--line);font-size:.8rem;color:var(--mute);min-height:100px;display:flex;flex-direction:column;justify-content:center;gap:4px;transition:transform .25s,box-shadow .25s;background:var(--card)}
+.seat b{font-size:1.7rem}
+.seat.on{border:2px solid transparent;color:#fff;transform:translateY(-4px);box-shadow:var(--shadow)}
+.seat:hover{transform:translateY(-2px)}
+nav{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 18px;position:sticky;top:8px;z-index:5;background:var(--bg);padding:6px 0;border-radius:12px}
+nav button,.btn{font:inherit;font-weight:600;border:0;border-radius:999px;padding:9px 18px;background:var(--card);color:var(--ink);cursor:pointer;border:1px solid var(--line);transition:.15s}
+nav button:hover,.btn:hover{transform:translateY(-1px)}
+nav button.on,.btn.pri{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+:focus-visible{outline:3px solid var(--c-lead);outline-offset:2px}
+section{display:none}section.on{display:block;animation:fade .35s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:14px;box-shadow:var(--shadow)}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+input,select,textarea{font:inherit;padding:10px 12px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:var(--ink);min-width:0}
+input{flex:1 1 180px}
+.badge{display:inline-block;color:#fff;border-radius:999px;padding:2px 12px;font-size:.85rem;font-weight:600}
+.mem{display:flex;gap:12px;align-items:center;flex-wrap:wrap;border-left:6px solid var(--c);padding-left:12px}
+.mem .nm{flex:1 1 140px;font-weight:600}
+.empty{color:var(--mute);text-align:center;padding:24px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.role{border-top:6px solid var(--c);position:relative}
+.role h3{font-size:1.25rem}
+.role ul{margin:6px 0;padding-left:18px}
+.role a{color:var(--c);text-decoration:none;font-weight:600}
+.role a:hover{text-decoration:underline}
+.tools span{display:inline-block;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:1px 8px;margin:2px 2px 0 0;font-size:.82rem}
+.sched td{padding:8px 6px;border-top:1px solid var(--line);vertical-align:top}
+.sched{width:100%;border-collapse:collapse}
+.tw{overflow-x:auto}
+.opt{display:block;width:100%;text-align:left;margin:8px 0;font:inherit;padding:12px 14px;border-radius:12px;border:2px solid var(--line);background:var(--card);color:var(--ink);cursor:pointer;transition:.15s}
+.opt:hover{border-color:var(--c);transform:translateX(2px)}
+.opt.ok{background:#2f9e44;color:#fff;border-color:#2f9e44}
+.opt.bad{background:#e03131;color:#fff;border-color:#e03131;animation:sh .3s}
+@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.bar{height:10px;background:var(--line);border-radius:9px;overflow:hidden;margin:10px 0}
+.bar i{display:block;height:100%;background:var(--c);transition:width .3s;border-radius:9px}
+.pick{cursor:pointer;border-top:6px solid var(--c);text-align:left;font:inherit;color:var(--ink);background:var(--card);border-radius:16px;border:1px solid var(--line);padding:16px;transition:.2s;box-shadow:var(--shadow)}
+.pick:hover{transform:translateY(-4px)}
+.big{font-size:2.6rem;font-family:'Bricolage Grotesque',sans-serif;font-weight:800}
+.muted{color:var(--mute)}
+.tag{display:inline-block;border-radius:999px;padding:3px 10px;font-size:.78rem;font-weight:600;margin:2px}
+.tag.start{background:#dbe4ff;color:#2b3a8c}
+.tag.next{background:#ffe8cc;color:#8a4b00}
+.tag.adv{background:#e5dbff;color:#5f3dc4}
+details{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px;margin-bottom:10px}
+details summary{cursor:pointer;font-weight:700;list-style:none;display:flex;align-items:center;gap:8px}
+details summary::-webkit-details-marker{display:none}
+details[open]{box-shadow:var(--shadow)}
+details summary::before{content:'▸';transition:.2s;display:inline-block}
+details[open] summary::before{transform:rotate(90deg)}
+.tool{border-left:4px solid var(--c);padding:10px 12px;margin:8px 0;background:var(--bg);border-radius:0 10px 10px 0}
+.tool h4{margin:0 0 4px;font-size:1rem}
+.tool p{margin:2px 0;font-size:.9rem}
+.tool a{color:var(--c);font-weight:600;text-decoration:none}
+.month{background:var(--bg);border-radius:12px;padding:12px;margin:8px 0;border:1px solid var(--line)}
+.month h4{margin:0 0 6px;color:var(--c)}
+.month ul{margin:4px 0;padding-left:18px;font-size:.92rem}
+.minigame{background:linear-gradient(135deg,rgba(59,91,219,.08),rgba(174,62,201,.08));border:1px dashed var(--line);border-radius:16px;padding:16px}
+.memgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:360px;margin:10px auto}
+.memcard{aspect-ratio:1;border-radius:12px;background:var(--ink);color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.6rem;cursor:pointer;transition:transform .25s;user-select:none}
+.memcard.flipped{background:var(--card);color:var(--ink);border:2px solid var(--line)}
+.memcard.matched{background:#2f9e44;color:#fff;border:2px solid #2f9e44}
+.typingbox{font-family:monospace;background:var(--bg);border:2px solid var(--line);border-radius:12px;padding:14px;min-height:60px;margin:8px 0;letter-spacing:.3px}
+.confetti{position:fixed;pointer-events:none;inset:0;overflow:hidden;z-index:99}
+.confetti span{position:absolute;top:-10px;font-size:1.4rem;animation:fall 1.6s linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg);opacity:0}}
+@media (max-width:560px){.seat span{display:none}.hero{padding:20px 16px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:14px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 16px;border-left:6px solid var(--c,var(--c-lead))}
+.stat b{display:block;font:800 1.9rem 'Bricolage Grotesque',sans-serif}
+.chip{font:inherit;font-size:.85rem;font-weight:600;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:5px 12px;cursor:pointer}
+.chip.on{background:var(--ink);color:var(--bg)}
+.sess{border-left:6px solid var(--c,var(--c-lead))}
+.sess ul{margin:6px 0;padding-left:18px}
+
+#auth{max-width:420px;margin:12vh auto;padding:0 16px}
+#app[hidden]{display:none}
+#ubar{display:flex;gap:10px;align-items:center;justify-content:flex-end;flex-wrap:wrap;padding:10px 0 0;font-size:.9rem}
+#team>.card:first-child,[data-x]{display:none!important}
+body.member .adminonly{display:none!important}
+</style>
+</head>
+<body>
+<div id="auth"><h1>Cyber Security Study Team</h1><p class="muted">Sign in with the email and password your team lead gave you.</p><div class="card"><input id="le" type="email" placeholder="Email" autocomplete="username" style="width:100%;margin-bottom:8px"><input id="lp" type="password" placeholder="Password" autocomplete="current-password" style="width:100%"><div class="row" style="margin-top:10px"><button class="btn pri" id="lgo">Sign in</button><button class="btn" id="lfg">Forgot password</button></div><p id="lmsg" class="muted" style="margin-bottom:0">Loading…</p></div></div>
+<div id="app" hidden><div class="wrap" style="padding-bottom:0"><div id="ubar"></div></div>
+<div class="wrap">
+<header>
+<button class="theme-btn" id="themeBtn" aria-label="Toggle theme">🌙 Dark</button>
+<div class="hero">
+<h1>Cyber Security Study Team</h1>
+<p>From zero to a working app. Five roles, one shared project, and a Friday–Sunday learning rhythm. No coding background needed — start with the seats below, name your team, then follow your role’s roadmap.</p>
+<div class="row">
+<span class="badge-pill">5 roles</span>
+<span class="badge-pill">3 study days / week</span>
+<span class="badge-pill">4-month roadmap</span>
+<span class="badge-pill" id="masteredPill">0 / 5 mastered</span>
+</div>
+</div>
+</header>
+<div class="seats" id="seats" aria-label="Role seats"></div>
+<nav id="nav"></nav>
+
+
+<section id="home" class="on"><div id="v-home"></div></section>
+<section id="start"><div id="v-start"></div></section>
+<section id="curric"><div id="v-curric"></div></section>
+<section id="tests"><div id="v-tests"></div></section>
+<section id="lib"><div id="v-lib"></div></section>
+<section id="hack"><div id="v-hack"></div></section>
+<section id="backup"><div id="v-backup"></div></section>
+<section id="team">
+<div class="card"><div class="row">
+<input id="nm" placeholder="Member name (leave blank if not named yet)" aria-label="Member name">
+<select id="rl" aria-label="Role"></select>
+<button class="btn pri" id="add">Add member</button>
+<button class="btn" id="fill">Create 5 blank seats</button>
+</div>
+<p class="muted" style="margin:8px 0 0;font-size:.9rem">Tip: click “Create 5 blank seats” to instantly fill all five roles, then type names later.</p>
+</div>
+<div id="list"></div>
+</section>
+
+<section id="road">
+<div class="card muted" style="margin-bottom:14px"><b>How to use this page:</b> pick your role, read “Where to start”, install the tools from the links, watch the beginner videos, then follow the 4-month roadmap week by week. Each month ends closer to a real small project.</div>
+<div class="grid" id="roles"></div>
+</section>
+
+<section id="tools">
+<div class="card"><h2 style="margin-bottom:6px">Toolbox & resources</h2><p class="muted">Every tool used by the team, what it does, how to use it, and where to download it. Click a role to filter.</p>
+<div class="row" id="toolfilters" style="margin:10px 0"></div>
+<div id="toolgrid" class="grid"></div>
+</div>
+</section>
+
+<section id="plan">
+<div class="card muted">Monday to Thursday are for university lectures. Learning and building happen Friday, Saturday and Sunday.</div>
+<div class="row" id="days" style="margin-bottom:12px"></div>
+<div id="day"></div>
+</section>
+
+<section id="attendance">
+<div class="card"><h2>Attendance board</h2>
+<p class="muted">Check in on the day itself. Present locks in; a missed day stays missed and can never be reopened. Tracks 17 weeks (51 study days).</p>
+<div class="row adminonly" style="margin:8px 0"><label>Study start date (first Friday): <input type="date" id="attStart"></label>
+<button class="btn pri" id="attSaveStart">Set</button></div>
+<div id="attCurrent"></div>
+<div id="attGrid"></div>
+<div class="card" style="margin-top:12px"><h3>Daily report to team lead</h3>
+<p class="muted">Generate today’s attendance summary and share it.</p>
+<div class="row"><button class="btn pri" id="attCopy">Copy report</button><button class="btn" id="attDownload">Download report (.txt)</button><button class="btn" id="attExport">Export all (CSV)</button></div>
+<pre id="attReport" style="white-space:pre-wrap;background:var(--bg);padding:10px;border-radius:10px;margin-top:8px;font-size:.85rem"></pre>
+</div>
+</section>
+
+<section id="dayroad">
+<div class="card"><h2>Day-wise roadmap (per role, 12 weeks)</h2>
+<p class="muted">Pick a week. Each study day has a task per role. Tick off when done.</p>
+<div class="row" id="weekTabs" style="margin-bottom:12px"></div>
+<div id="weekView"></div>
+</div>
+</section>
+
+<section id="games">
+<div class="card row"><span>Playing as</span><select id="who" aria-label="Player">
+<option value="-1">Guest</option></select>
+<span class="muted" style="margin-left:auto;font-size:.9rem">Scores save to the selected member.</span></div>
+<div id="gpick"></div>
+<div id="game"></div>
+<div style="margin-top:18px">
+<h3 style="margin-bottom:8px">Mini games</h3>
+<div class="grid">
+<button class="pick" data-mini="memory"><b>🧠 Memory match</b><br><span class="muted">Flip and match tech pairs</span></button>
+<button class="pick" data-mini="typing"><b>⌨️ Typing race</b><br><span class="muted">Type a code snippet fast</span></button>
+<button class="pick" data-mini="speed"><b>⏱️ Speed quiz (60s)</b><br><span class="muted">Answer as many as you can</span></button>
+</div>
+<div id="mini" style="margin-top:14px"></div>
+</div>
+</section>
+
+<section id="resources">
+<div class="card"><h2>Resources by role</h2>
+<p class="muted">Each member has their own toolbox here: the tools for their role, where to get them, and the videos/channels to learn from.</p>
+<div class="grid" id="resroles"></div>
+</div>
+<div class="card"><h2>Starter resources for everyone</h2>
+<p class="muted">Free places to learn more, ask questions and find inspiration.</p>
+<div class="grid">
+<div class="card role" style="--c:var(--c-lead)"><h3>📚 Learning platforms</h3><ul>
+<li><a href="https://www.freecodecamp.org" target="_blank" rel="noopener">freeCodeCamp</a> — free full courses</li>
+<li><a href="https://www.codecademy.com" target="_blank" rel="noopener">Codecademy</a> — interactive lessons</li>
+<li><a href="https://developer.mozilla.org" target="_blank" rel="noopener">MDN Web Docs</a> — HTML/CSS/JS reference</li>
+<li><a href="https://www.w3schools.com" target="_blank" rel="noopener">W3Schools</a> — quick examples</li>
+</ul></div>
+<div class="card role" style="--c:var(--c-back)"><h3>🎥 General YouTube channels</h3><ul>
+<li><a href="https://www.youtube.com/@TraversyMedia" target="_blank" rel="noopener">Traversy Media</a></li>
+<li><a href="https://www.youtube.com/@freecodecamp" target="_blank" rel="noopener">freeCodeCamp.org</a></li>
+<li><a href="https://www.youtube.com/@NetworkChuck" target="_blank" rel="noopener">NetworkChuck</a></li>
+<li><a href="https://www.youtube.com/@KevinPowell" target="_blank" rel="noopener">Kevin Powell (CSS)</a></li>
+</ul></div>
+<div class="card role" style="--c:var(--c-sec)"><h3>🛠️ Practice & hosting</h3><ul>
+<li><a href="https://github.com" target="_blank" rel="noopener">GitHub</a> — host code</li>
+<li><a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a> — quick front-end tests</li>
+<li><a href="https://replit.com" target="_blank" rel="noopener">Replit</a> — run Python in browser</li>
+<li><a href="https://render.com" target="_blank" rel="noopener">Render</a> — free hosting for apps</li>
+</ul></div>
+<div class="card role" style="--c:var(--c-db)"><h3>💬 Communities</h3><ul>
+<li><a href="https://stackoverflow.com" target="_blank" rel="noopener">Stack Overflow</a> — Q&A</li>
+<li><a href="https://discord.com" target="_blank" rel="noopener">Discord servers</a> — study groups</li>
+<li><a href="https://www.reddit.com/r/learnprogramming" target="_blank" rel="noopener">r/learnprogramming</a></li>
+<li><a href="https://www.reddit.com/r/cybersecurity" target="_blank" rel="noopener">r/cybersecurity</a></li>
+</ul></div>
+</div>
+</div>
+</section>
+</div>
+
+</div>
+<script>
+/* ============================================================
+   Hackathon Learning Platform - Data
+   University of Lahore - BS Cyber Security (Semester 1)
+   ============================================================ */
+
+(function(){
+const TEAM = [
+  { id: 'lead', name: 'Team Leader (You)', role: 'Team Leader / Project Manager', color: '#7c3aed', icon: '👑',
+    responsibilities: ['Set start date & roadmap', 'Git workflow & integration', 'Deployment & DevOps', 'Hackathon pitching', 'Code review & coordination'],
+    skills: ['Project management', 'Git/GitHub', 'CI/CD', 'Agile', 'Presentation'] },
+  { id: 'fe', name: 'Frontend Developer', role: 'Frontend Coder & UI/UX Designer', color: '#0ea5e9', icon: '🎨',
+    responsibilities: ['HTML/CSS/JS', 'React & Tailwind', 'Figma designs', 'Responsive UI', 'Accessibility'],
+    skills: ['HTML', 'CSS', 'JavaScript', 'React', 'Tailwind', 'Figma'] },
+  { id: 'be', name: 'Backend Developer', role: 'Backend Programmer', color: '#10b981', icon: '⚙️',
+    responsibilities: ['REST APIs', 'Auth & sessions', 'Business logic', 'Server security', 'Integration'],
+    skills: ['Node.js/Express', 'Python/FastAPI', 'REST', 'JWT', 'OWASP'] },
+  { id: 'qa', name: 'Cybersecurity QA', role: 'Cybersecurity & QA Engineer', color: '#ef4444', icon: '🛡️',
+    responsibilities: ['OWASP testing', 'Burp Suite', 'Vulnerability scanning', 'Test cases', 'Security reports'],
+    skills: ['OWASP Top 10', 'Burp Suite', 'ZAP', 'Pentesting basics', 'QA automation'] },
+  { id: 'db', name: 'Database Administrator', role: 'Database Administrator', color: '#f59e0b', icon: '🗄️',
+    responsibilities: ['Schema design', 'SQL/NoSQL', 'Backups', 'Optimization', 'Data security'],
+    skills: ['PostgreSQL', 'MongoDB', 'SQL', 'Indexing', 'Backup/Restore'] }
+];
+
+// Learning days: Friday, Saturday, Sunday only (0=Sun,5=Fri,6=Sat)
+const LEARNING_DAYS = [5, 6, 0];
+
+// 4-month program: ~17 weeks, 3 days/week
+const PHASES = [
+  { id: 1, name: 'Phase 1: Foundations', weeks: '1-4', color: '#6366f1',
+    goal: 'Everyone speaks the same language: web basics, Git, Linux, Python, networking.',
+    modules: ['Web Basics (HTML/CSS)', 'JavaScript Essentials', 'Git & GitHub', 'Linux & Terminal', 'Python Basics', 'Networking 101'] },
+  { id: 2, name: 'Phase 2: Role Specialization', weeks: '5-10', color: '#0ea5e9',
+    goal: 'Each member masters their track and builds a small solo project.',
+    modules: ['Frontend: React + Tailwind', 'Backend: REST API + Auth', 'Cyber: OWASP + Burp', 'Database: SQL + NoSQL', 'Leader: CI/CD + Deploy'] },
+  { id: 3, name: 'Phase 3: Integration', weeks: '11-14', color: '#10b981',
+    goal: 'Combine into one full-stack secure app with shared repo & CI.',
+    modules: ['API contract & integration', 'Auth & roles', 'DB integration', 'Security hardening', 'UI polish'] },
+  { id: 4, name: 'Phase 4: Hackathon Ready', weeks: '15-17', color: '#f59e0b',
+    goal: 'Ship, test, document, pitch. Ready for any Pakistani hackathon.',
+    modules: ['End-to-end testing', 'Pen-test & fix', 'Deployment', 'Docs & pitch deck', 'Mock hackathon'] }
+];
+
+// Day-wise roadmap template. Each entry = one learning day (Fri/Sat/Sun).
+// We generate actual dates from start date. Content cycles through this list.
+const DAY_PLAN = [
+  // Week 1
+  { w:1, day:'Fri', title:'Welcome & Setup', track:'All', topics:['Install VS Code, Git, Node, Python', 'Create GitHub org & repo', 'Team roles & workflow', 'How the platform works'], video:'https://www.youtube.com/results?search_query=vs+code+git+github+setup+beginners', tool:'VS Code' },
+  { w:1, day:'Sat', title:'HTML Basics', track:'Frontend', topics:['HTML structure, tags, attributes', 'Semantic HTML', 'Forms & inputs', 'First webpage'], video:'https://www.youtube.com/watch?v=pQN-pnXPaVg', tool:'VS Code' },
+  { w:1, day:'Sun', title:'CSS Basics', track:'Frontend', topics:['Selectors, box model, flexbox', 'Colors, fonts, spacing', 'Responsive basics', 'Style your page'], video:'https://www.youtube.com/watch?v=1Rs2ND1ryYc', tool:'Chrome DevTools' },
+  // Week 2
+  { w:2, day:'Fri', title:'JavaScript I', track:'All', topics:['Variables, types, operators', 'Conditionals & loops', 'Functions', 'Console & debugging'], video:'https://www.youtube.com/watch?v=W6NZfCO5SIk', tool:'Node.js' },
+  { w:2, day:'Sat', title:'JavaScript II', track:'All', topics:['Arrays & objects', 'DOM manipulation', 'Events', 'Fetch API intro'], video:'https://www.youtube.com/watch?v=hdI2bqOjy3c', tool:'Chrome DevTools' },
+  { w:2, day:'Sun', title:'Git & GitHub', track:'All', topics:['init, add, commit, push', 'Branches & PRs', 'Merge conflicts', 'Team workflow'], video:'https://www.youtube.com/watch?v=RGOj5yH7evk', tool:'Git' },
+  // Week 3
+  { w:3, day:'Fri', title:'Linux & Terminal', track:'All', topics:['Basic commands', 'File system, permissions', 'SSH keys', 'WSL setup (Windows)'], video:'https://www.youtube.com/watch?v=sWbUDq4S6Y8', tool:'WSL / Terminal' },
+  { w:3, day:'Sat', title:'Python Basics', track:'All', topics:['Syntax, variables, types', 'Control flow', 'Functions & modules', 'pip & venv'], video:'https://www.youtube.com/watch?v=rfscVS0vtbw', tool:'Python' },
+  { w:3, day:'Sun', title:'Networking 101', track:'All', topics:['IP, DNS, HTTP/HTTPS', 'Ports & protocols', 'TCP vs UDP', 'How web requests work'], video:'https://www.youtube.com/results?search_query=computer+networking+basics+for+beginners', tool:'Postman' },
+  // Week 4
+  { w:4, day:'Fri', title:'Tailwind CSS', track:'Frontend', topics:['Utility classes', 'Responsive design', 'Components', 'Dark mode'], video:'https://www.youtube.com/watch?v=dFgzHOX84xQ', tool:'Tailwind' },
+  { w:4, day:'Sat', title:'React Basics', track:'Frontend', topics:['Components & JSX', 'Props & state', 'useState/useEffect', 'Event handling'], video:'https://www.youtube.com/watch?v=bMknfKXIFA8', tool:'Vite' },
+  { w:4, day:'Sun', title:'REST API Concepts', track:'Backend', topics:['HTTP methods', 'Status codes', 'JSON', 'API design principles'], video:'https://www.youtube.com/results?search_query=rest+api+explained+beginners', tool:'Postman' },
+  // Week 5
+  { w:5, day:'Fri', title:'Node.js & Express', track:'Backend', topics:['Node runtime', 'Express server', 'Routing', 'Middleware'], video:'https://www.youtube.com/watch?v=Oe421EPjeBE', tool:'Node.js' },
+  { w:5, day:'Sat', title:'Database SQL I', track:'Database', topics:['Tables, rows, columns', 'SELECT/INSERT/UPDATE/DELETE', 'WHERE, ORDER BY', 'PostgreSQL setup'], video:'https://www.youtube.com/watch?v=HXV3zeQKqGY', tool:'PostgreSQL' },
+  { w:5, day:'Sun', title:'OWASP Top 10', track:'Cyber', topics:['Injection, XSS, CSRF', 'Broken auth', 'Sensitive data exposure', 'Security mindset'], video:'https://www.youtube.com/results?search_query=owasp+top+10+explained', tool:'OWASP ZAP' },
+  // Week 6
+  { w:6, day:'Fri', title:'React State & Routing', track:'Frontend', topics:['React Router', 'Context API', 'Forms', 'API calls with fetch'], video:'https://www.youtube.com/results?search_query=react+router+context+api+tutorial', tool:'React' },
+  { w:6, day:'Sat', title:'Auth & JWT', track:'Backend', topics:['Password hashing (bcrypt)', 'JWT tokens', 'Login/register endpoints', 'Protected routes'], video:'https://www.youtube.com/results?search_query=jwt+authentication+node+express+tutorial', tool:'Postman' },
+  { w:6, day:'Sun', title:'MongoDB Basics', track:'Database', topics:['Documents & collections', 'CRUD', 'Mongoose', 'When to use NoSQL'], video:'https://www.youtube.com/watch?v=ofme2o29ngU', tool:'MongoDB' },
+  // Week 7
+  { w:7, day:'Fri', title:'Burp Suite Intro', track:'Cyber', topics:['Proxy setup', 'Intercept requests', 'Repeater & Intruder', 'Basic testing'], video:'https://www.youtube.com/results?search_query=burp+suite+beginner+tutorial', tool:'Burp Suite' },
+  { w:7, day:'Sat', title:'DB Design & Normalization', track:'Database', topics:['ER diagrams', '1NF/2NF/3NF', 'Foreign keys', 'Indexing basics'], video:'https://www.youtube.com/results?search_query=database+normalization+tutorial', tool:'pgAdmin' },
+  { w:7, day:'Sun', title:'CI/CD Basics', track:'Leader', topics:['GitHub Actions', 'Automated tests', 'Linting', 'Deploy pipelines'], video:'https://www.youtube.com/results?search_query=github+actions+ci+cd+tutorial', tool:'GitHub Actions' },
+  // Week 8
+  { w:8, day:'Fri', title:'UI/UX with Figma', track:'Frontend', topics:['Wireframes', 'Components', 'Prototyping', 'Handoff to code'], video:'https://www.youtube.com/results?search_query=figma+tutorial+beginners+ui+ux', tool:'Figma' },
+  { w:8, day:'Sat', title:'API Security', track:'Backend', topics:['Rate limiting', 'Input validation', 'CORS', 'Helmet.js'], video:'https://www.youtube.com/results?search_query=api+security+node+express+best+practices', tool:'Postman' },
+  { w:8, day:'Sun', title:'SQL Injection & XSS Labs', track:'Cyber', topics:['DVWA / Juice Shop', 'Exploit basics', 'Mitigations', 'Write report'], video:'https://www.youtube.com/results?search_query=sql+injection+xss+tutorial+beginners', tool:'Burp Suite' },
+  // Week 9
+  { w:9, day:'Fri', title:'Advanced React', track:'Frontend', topics:['Custom hooks', 'Performance', 'Error boundaries', 'Testing (RTL)'], video:'https://www.youtube.com/results?search_query=advanced+react+hooks+tutorial', tool:'React' },
+  { w:9, day:'Sat', title:'FastAPI (Python)', track:'Backend', topics:['FastAPI basics', 'Pydantic models', 'Auto docs', 'Async'], video:'https://www.youtube.com/results?search_query=fastapi+tutorial+beginners', tool:'Python' },
+  { w:9, day:'Sun', title:'Backup & Recovery', track:'Database', topics:['pg_dump, mongodump', 'Schedules', 'Restore drills', 'Disaster recovery'], video:'https://www.youtube.com/results?search_query=postgresql+backup+restore+tutorial', tool:'PostgreSQL' },
+  // Week 10
+  { w:10, day:'Fri', title:'Docker Basics', track:'All', topics:['Images & containers', 'Dockerfile', 'docker-compose', 'Why containers'], video:'https://www.youtube.com/watch?v=fqMOX6JJhGo', tool:'Docker' },
+  { w:10, day:'Sat', title:'ZAP Automated Scan', track:'Cyber', topics:['Spider & active scan', 'Alerts triage', 'False positives', 'Report export'], video:'https://www.youtube.com/results?search_query=owasp+zap+tutorial+beginners', tool:'OWASP ZAP' },
+  { w:10, day:'Sun', title:'Advanced SQL', track:'Database', topics:['Joins, aggregations', 'Subqueries', 'Views & CTEs', 'Query optimization'], video:'https://www.youtube.com/results?search_query=advanced+sql+tutorial+joins+aggregations', tool:'PostgreSQL' },
+  // Week 11 - Integration
+  { w:11, day:'Fri', title:'Project Kickoff', track:'All', topics:['Define project idea', 'API contract (OpenAPI)', 'Repo structure', 'Task board (GitHub Projects)'], video:'https://www.youtube.com/results?search_query=how+to+plan+a+software+project', tool:'GitHub Projects' },
+  { w:11, day:'Sat', title:'Frontend ↔ Backend', track:'All', topics:['Fetch integration', 'CORS handling', 'Loading & error states', 'Auth flow end-to-end'], video:'https://www.youtube.com/results?search_query=frontend+backend+integration+react+node', tool:'Postman' },
+  { w:11, day:'Sun', title:'DB Integration', track:'All', topics:['Connect backend to DB', 'Migrations', 'Seed data', 'Env variables'], video:'https://www.youtube.com/results?search_query=connect+node+express+postgresql', tool:'PostgreSQL' },
+  // Week 12
+  { w:12, day:'Fri', title:'Auth & Roles (RBAC)', track:'All', topics:['Roles: admin/user', 'Middleware guards', 'Frontend route guards', 'Test accounts'], video:'https://www.youtube.com/results?search_query=role+based+access+control+node+react', tool:'Postman' },
+  { w:12, day:'Sat', title:'Security Hardening', track:'Cyber', topics:['Headers, CSP', 'Input sanitization', 'Rate limiting', 'Secrets management'], video:'https://www.youtube.com/results?search_query=web+app+security+hardening+tutorial', tool:'Burp Suite' },
+  { w:12, day:'Sun', title:'UI Polish', track:'Frontend', topics:['Responsive fixes', 'Loading skeletons', 'Toast notifications', 'Accessibility audit'], video:'https://www.youtube.com/results?search_query=ui+polish+react+tailwind', tool:'Lighthouse' },
+  // Week 13
+  { w:13, day:'Fri', title:'Testing Strategy', track:'All', topics:['Unit vs integration', 'Jest basics', 'API tests', 'Test pyramid'], video:'https://www.youtube.com/results?search_query=jest+testing+tutorial+beginners', tool:'Jest' },
+  { w:13, day:'Sat', title:'End-to-End Testing', track:'All', topics:['Playwright/Cypress', 'Critical flows', 'CI integration', 'Bug triage'], video:'https://www.youtube.com/results?search_query=playwright+e2e+testing+tutorial', tool:'Playwright' },
+  { w:13, day:'Sun', title:'Performance & Caching', track:'All', topics:['DB indexing', 'Query plans', 'Redis intro', 'Lighthouse score'], video:'https://www.youtube.com/results?search_query=web+performance+optimization+tutorial', tool:'Lighthouse' },
+  // Week 14
+  { w:14, day:'Fri', title:'Penetration Test', track:'Cyber', topics:['Full app scan', 'Exploit attempts', 'Risk rating', 'Fix plan'], video:'https://www.youtube.com/results?search_query=web+application+penetration+testing+tutorial', tool:'Burp Suite' },
+  { w:14, day:'Sat', title:'Fix & Retest', track:'All', topics:['Apply fixes', 'Regression tests', 'Verify with ZAP', 'Security checklist'], video:'https://www.youtube.com/results?search_query=secure+coding+best+practices', tool:'OWASP ZAP' },
+  { w:14, day:'Sun', title:'Deployment', track:'Leader', topics:['Dockerize app', 'Deploy to Render/Railway', 'Env & secrets', 'Domain & HTTPS'], video:'https://www.youtube.com/results?search_query=deploy+node+react+app+render+railway', tool:'Docker' },
+  // Week 15
+  { w:15, day:'Fri', title:'Documentation', track:'All', topics:['README, setup guide', 'API docs (Swagger)', 'Architecture diagram', 'Contributing guide'], video:'https://www.youtube.com/results?search_query=how+to+write+good+readme+documentation', tool:'Swagger' },
+  { w:15, day:'Sat', title:'Pitch Deck', track:'Leader', topics:['Problem & solution', 'Demo flow', 'Tech stack', 'Impact & roadmap'], video:'https://www.youtube.com/results?search_query=how+to+pitch+hackathon+project', tool:'Canva' },
+  { w:15, day:'Sun', title:'Mock Hackathon', track:'All', topics:['4-hour build sprint', 'Time management', 'Demo practice', 'Retrospective'], video:'https://www.youtube.com/results?search_query=hackathon+tips+for+beginners', tool:'Timer' },
+  // Week 16
+  { w:16, day:'Fri', title:'Advanced Topics', track:'All', topics:['WebSockets intro', 'File uploads', 'Pagination', 'Search'], video:'https://www.youtube.com/results?search_query=websockets+tutorial+beginners', tool:'Postman' },
+  { w:16, day:'Sat', title:'Monitoring & Logs', track:'Leader', topics:['Error tracking', 'Logging', 'Uptime', 'Alerts'], video:'https://www.youtube.com/results?search_query=application+monitoring+logging+tutorial', tool:'Sentry' },
+  { w:16, day:'Sun', title:'DB Performance', track:'Database', topics:['EXPLAIN plans', 'Index tuning', 'Connection pooling', 'Caching'], video:'https://www.youtube.com/results?search_query=database+performance+tuning+postgresql', tool:'pgAdmin' },
+  // Week 17
+  { w:17, day:'Fri', title:'Final Polish', track:'All', topics:['Bug bash', 'UI fixes', 'Security re-check', 'Final deploy'], video:'https://www.youtube.com/results?search_query=final+polish+before+launch', tool:'Lighthouse' },
+  { w:17, day:'Sat', title:'Hackathon Strategy', track:'All', topics:['Choosing challenges', 'Team roles in hackathon', 'Timeboxing', 'Judging criteria'], video:'https://www.youtube.com/results?search_query=hackathon+strategy+tips', tool:'Notion' },
+  { w:17, day:'Sun', title:'Graduation & Next Steps', track:'All', topics:['Portfolio', 'Open source', 'Internships', 'Continuous learning'], video:'https://www.youtube.com/results?search_query=how+to+build+developer+portfolio', tool:'GitHub' }
+];
+
+const TOOLS = [
+  { name:'VS Code', cat:'Editor', purpose:'Code editor with extensions, debugging, IntelliSense.', how:'Install, add extensions (ESLint, Prettier, GitLens). Use integrated terminal.', link:'https://code.visualstudio.com/' },
+  { name:'Git', cat:'Version Control', purpose:'Track code changes, collaborate via branches.', how:'git init/add/commit/push/pull, branches, PRs.', link:'https://git-scm.com/' },
+  { name:'GitHub', cat:'Hosting', purpose:'Host repos, PRs, issues, Actions (CI/CD).', how:'Create org, repos, invite team, protect main branch.', link:'https://github.com/' },
+  { name:'Node.js', cat:'Runtime', purpose:'Run JavaScript on server; npm packages.', how:'Install LTS, use npm init, npm install.', link:'https://nodejs.org/' },
+  { name:'Python', cat:'Language', purpose:'Backend (FastAPI), scripting, automation.', how:'Install 3.11+, use venv, pip.', link:'https://www.python.org/' },
+  { name:'PostgreSQL', cat:'Database', purpose:'Relational DB, SQL, ACID.', how:'Install, create db/user, use psql/pgAdmin.', link:'https://www.postgresql.org/' },
+  { name:'MongoDB', cat:'Database', purpose:'NoSQL document DB.', how:'Install Community or Atlas cloud; use mongosh.', link:'https://www.mongodb.com/' },
+  { name:'Postman', cat:'API Testing', purpose:'Test REST APIs, collections, env vars.', how:'Create requests, save collections, share with team.', link:'https://www.postman.com/' },
+  { name:'Burp Suite', cat:'Security', purpose:'Intercept & test web traffic (proxy).', how:'Community Edition free; configure browser proxy 127.0.0.1:8080.', link:'https://portswigger.net/burp' },
+  { name:'OWASP ZAP', cat:'Security', purpose:'Automated vulnerability scanner.', how:'Spider target, run active scan, triage alerts.', link:'https://www.zaproxy.org/' },
+  { name:'Figma', cat:'Design', purpose:'UI/UX design & prototyping.', how:'Free tier; components, auto-layout, dev mode.', link:'https://www.figma.com/' },
+  { name:'Docker', cat:'DevOps', purpose:'Containerize apps for consistent deploys.', how:'Install Docker Desktop; write Dockerfile & compose.', link:'https://www.docker.com/' },
+  { name:'WSL', cat:'Environment', purpose:'Linux on Windows for dev.', how:'wsl --install, pick Ubuntu, use terminal.', link:'https://learn.microsoft.com/windows/wsl/' },
+  { name:'Vite', cat:'Build', purpose:'Fast frontend dev server & bundler.', how:'npm create vite@latest, pick React.', link:'https://vitejs.dev/' },
+  { name:'React', cat:'Framework', purpose:'Component-based UI library.', how:'Learn hooks, state, routing, fetch.', link:'https://react.dev/' },
+  { name:'Tailwind', cat:'CSS', purpose:'Utility-first CSS framework.', how:'npm install tailwindcss, configure, use classes.', link:'https://tailwindcss.com/' },
+  { name:'Jest', cat:'Testing', purpose:'JS unit testing framework.', how:'npm install jest, write *.test.js.', link:'https://jestjs.io/' },
+  { name:'Playwright', cat:'Testing', purpose:'End-to-end browser testing.', how:'npm init playwright, write specs.', link:'https://playwright.dev/' },
+  { name:'Swagger', cat:'Docs', purpose:'API documentation (OpenAPI).', how:'swagger-jsdoc + swagger-ui-express.', link:'https://swagger.io/' },
+  { name:'Canva', cat:'Design', purpose:'Pitch decks & graphics.', how:'Free templates, export PDF/PPT.', link:'https://www.canva.com/' },
+  { name:'Lighthouse', cat:'Performance', purpose:'Audit performance, a11y, SEO.', how:'Chrome DevTools > Lighthouse tab.', link:'https://developer.chrome.com/docs/lighthouse/' },
+  { name:'Sentry', cat:'Monitoring', purpose:'Error tracking in production.', how:'Create project, add SDK, capture errors.', link:'https://sentry.io/' },
+  { name:'pgAdmin', cat:'DB Tool', purpose:'GUI for PostgreSQL.', how:'Connect to local/remote server.', link:'https://www.pgadmin.org/' },
+  { name:'Notion', cat:'Productivity', purpose:'Notes, kanban, docs.', how:'Workspace for team notes.', link:'https://www.notion.so/' }
+];
+
+const RESOURCES = [
+  { cat:'HTML/CSS', title:'freeCodeCamp Responsive Web Design', url:'https://www.freecodecamp.org/learn/2022/responsive-web-design/', type:'Course' },
+  { cat:'JavaScript', title:'freeCodeCamp JavaScript Algorithms', url:'https://www.freecodecamp.org/learn/javascript-algorithms-and-data-structures/', type:'Course' },
+  { cat:'JavaScript', title:'javascript.info (reference)', url:'https://javascript.info/', type:'Docs' },
+  { cat:'Git', title:'Git & GitHub for Beginners', url:'https://www.youtube.com/watch?v=RGOj5yH7evk', type:'Video' },
+  { cat:'Python', title:'freeCodeCamp Python for Beginners', url:'https://www.youtube.com/watch?v=rfscVS0vtbw', type:'Video' },
+  { cat:'React', title:'React Official Docs', url:'https://react.dev/learn', type:'Docs' },
+  { cat:'Node/Express', title:'Node.js & Express (freeCodeCamp)', url:'https://www.youtube.com/watch?v=Oe421EPjeBE', type:'Video' },
+  { cat:'SQL', title:'SQL Tutorial (freeCodeCamp)', url:'https://www.youtube.com/watch?v=HXV3zeQKqGY', type:'Video' },
+  { cat:'MongoDB', title:'MongoDB Crash Course', url:'https://www.youtube.com/watch?v=ofme2o29ngU', type:'Video' },
+  { cat:'Docker', title:'Docker Tutorial (freeCodeCamp)', url:'https://www.youtube.com/watch?v=fqMOX6JJhGo', type:'Video' },
+  { cat:'Cybersecurity', title:'Ethical Hacking (freeCodeCamp)', url:'https://www.youtube.com/watch?v=3Kq1MIfTWCE', type:'Video' },
+  { cat:'Cybersecurity', title:'OWASP Top 10', url:'https://owasp.org/www-project-top-ten/', type:'Docs' },
+  { cat:'Networking', title:'Computer Networking (Khan/YouTube)', url:'https://www.youtube.com/results?search_query=computer+networking+full+course', type:'Video' },
+  { cat:'Linux', title:'Linux for Beginners', url:'https://www.youtube.com/watch?v=sWbUDq4S6Y8', type:'Video' },
+  { cat:'Figma', title:'Figma UI/UX Tutorial', url:'https://www.youtube.com/results?search_query=figma+tutorial+beginners', type:'Video' },
+  { cat:'Testing', title:'Jest Testing', url:'https://www.youtube.com/results?search_query=jest+testing+tutorial', type:'Video' },
+  { cat:'Testing', title:'Playwright E2E', url:'https://www.youtube.com/results?search_query=playwright+e2e+testing+tutorial', type:'Video' },
+  { cat:'Deployment', title:'Deploy Full Stack App', url:'https://www.youtube.com/results?search_query=deploy+full+stack+app+render', type:'Video' },
+  { cat:'Hackathon', title:'Hackathon Tips', url:'https://www.youtube.com/results?search_query=hackathon+tips+for+beginners', type:'Video' },
+  { cat:'Pakistan', title:'Pakistani Hackathons (DevPost/MLH)', url:'https://devpost.com/hackathons', type:'Link' }
+];
+
+const TESTS = [
+  { id:'t1', title:'HTML & CSS Basics', questions:[
+    { q:'Which tag is semantic for main content?', opts:['<div>','<main>','<span>','<section>'], a:1 },
+    { q:'CSS box model order (inside→out)?', opts:['margin,border,padding,content','content,padding,border,margin','padding,content,margin,border','border,padding,content,margin'], a:1 },
+    { q:'Flexbox property to center items horizontally?', opts:['align-items','justify-content','flex-wrap','gap'], a:1 }
+  ]},
+  { id:'t2', title:'JavaScript Essentials', questions:[
+    { q:'Which is NOT a primitive type?', opts:['string','number','object','boolean'], a:2 },
+    { q:'Array method to add to end?', opts:['push','pop','shift','unshift'], a:0 },
+    { q:'=== compares?', opts:['value only','value & type','reference','none'], a:1 }
+  ]},
+  { id:'t3', title:'Git Basics', questions:[
+    { q:'Command to stage files?', opts:['git commit','git add','git push','git pull'], a:1 },
+    { q:'Create new branch?', opts:['git branch name','git checkout -b name','both','neither'], a:2 },
+    { q:'Merge conflicts resolved by?', opts:['auto always','manual edit','delete branch','reclone'], a:1 }
+  ]},
+  { id:'t4', title:'SQL Basics', questions:[
+    { q:'Select all rows?', opts:['SELECT * FROM t','GET all t','FETCH t','SELECT t'], a:0 },
+    { q:'Primary key is?', opts:['nullable','unique non-null','foreign','index only'], a:1 },
+    { q:'JOIN combines?', opts:['rows from tables','columns only','databases','schemas'], a:0 }
+  ]},
+  { id:'t5', title:'OWASP Security', questions:[
+    { q:'XSS means?', opts:['Cross-Site Scripting','XML Site Sync','X-Server Security','Cross-Server Script'], a:0 },
+    { q:'SQL injection prevention?', opts:['string concat','parameterized queries','hide DB','no inputs'], a:1 },
+    { q:'CSRF token purpose?', opts:['speed','verify request origin','encrypt','cache'], a:1 }
+  ]},
+  { id:'t6', title:'React Basics', questions:[
+    { q:'Hook for state?', opts:['useEffect','useState','useRef','useMemo'], a:1 },
+    { q:'Props are?', opts:['mutable state','read-only inputs','global','css'], a:1 },
+    { q:'JSX compiles to?', opts:['HTML','React.createElement','DOM','string'], a:1 }
+  ]}
+];
+// ---------- Role-specific tracks ----------
+const ROLE_TRACKS = [
+  { id:'fe', name:'Frontend / UI-UX', color:'#0ea5e9', icon:'🎨',
+    summary:'Build beautiful, responsive, accessible interfaces with React & Tailwind.',
+    procedures:[
+      'Week 1-2: HTML, CSS, JavaScript fundamentals; set up VS Code + Git.',
+      'Week 3-4: Tailwind CSS, responsive design, Figma wireframes.',
+      'Week 5-8: React components, state, routing, API integration, accessibility.',
+      'Week 9-12: Advanced React (hooks, performance), UI polish, testing (RTL).',
+      'Week 13-17: Integrate with backend, final polish, pitch deck visuals.'
+    ],
+    tools:['VS Code','Vite','React','Tailwind','Figma','Chrome DevTools','Lighthouse','Jest','Playwright','Canva'],
+    resources:['HTML/CSS','JavaScript','React','Figma','Testing','Deployment']
+  },
+  { id:'be', name:'Backend Programmer', color:'#10b981', icon:'⚙️',
+    summary:'Build secure REST APIs, auth, and business logic with Node/Express or FastAPI.',
+    procedures:[
+      'Week 1-2: JavaScript/Python basics, Git, terminal.',
+      'Week 3-4: REST API concepts, HTTP, status codes, JSON.',
+      'Week 5-8: Node.js & Express / FastAPI, routing, middleware, JWT auth.',
+      'Week 9-12: API security (validation, rate limiting, CORS), integration.',
+      'Week 13-17: Testing (Jest), Docker, deployment, monitoring.'
+    ],
+    tools:['VS Code','Node.js','Python','Postman','Swagger','Docker','Jest','Sentry'],
+    resources:['JavaScript','Node/Express','SQL','Deployment','Testing']
+  },
+  { id:'qa', name:'Cybersecurity QA', color:'#ef4444', icon:'🛡️',
+    summary:'Find and fix vulnerabilities; own OWASP testing and quality assurance.',
+    procedures:[
+      'Week 1-2: Networking, Linux, web basics, OWASP overview.',
+      'Week 3-4: OWASP Top 10 deep dive, security mindset.',
+      'Week 5-8: Burp Suite, OWASP ZAP, manual testing, exploit basics.',
+      'Week 9-12: SQL injection & XSS labs, security hardening review.',
+      'Week 13-17: Pen-test full app, retest fixes, write security report.'
+    ],
+    tools:['Burp Suite','OWASP ZAP','Postman','WSL / Terminal','Docker','Kali Linux (optional)'],
+    resources:['Cybersecurity','Networking','Testing','Deployment']
+  },
+  { id:'db', name:'Database Administrator', color:'#f59e0b', icon:'🗄️',
+    summary:'Design, secure, back up and optimize PostgreSQL/MongoDB databases.',
+    procedures:[
+      'Week 1-2: SQL basics, PostgreSQL setup, pgAdmin.',
+      'Week 3-4: Schema design, normalization, ER diagrams.',
+      'Week 5-8: Advanced SQL, joins, indexing, MongoDB basics.',
+      'Week 9-12: Backup/restore drills, migrations, seed data.',
+      'Week 13-17: Performance tuning, connection pooling, caching.'
+    ],
+    tools:['PostgreSQL','MongoDB','pgAdmin','Docker','VS Code'],
+    resources:['SQL','MongoDB','Deployment']
+  },
+  { id:'lead', name:'Team Leader / PM', color:'#7c3aed', icon:'👑',
+    summary:'Coordinate the team, Git workflow, CI/CD, deployment and hackathon pitching.',
+    procedures:[
+      'Week 1-2: Set up GitHub org, repo, branch protection, project board.',
+      'Week 3-4: CI/CD basics (GitHub Actions), linting, automated tests.',
+      'Week 5-8: Integration planning, API contracts, sprint reviews.',
+      'Week 9-12: Deployment pipelines, env & secrets management.',
+      'Week 13-17: Documentation, pitch deck, mock hackathon, retrospective.'
+    ],
+    tools:['Git','GitHub','GitHub Actions','Docker','Canva','Notion','Sentry','Swagger'],
+    resources:['Git','Deployment','Hackathon','Pakistan']
+  }
+];
+
+window.APP_DATA = { TEAM, LEARNING_DAYS, PHASES, DAY_PLAN, TOOLS, RESOURCES, TESTS, ROLE_TRACKS };
+})();
+
+</script>
+<script type="text/plain" id="appjs">
+window.onerror=function(msg,src,line){try{var d=document.createElement('div');d.style='position:fixed;bottom:0;left:0;right:0;background:#e03131;color:#fff;padding:8px;z-index:9999;font-size:.85rem';d.textContent='JS error: '+msg+' (line '+line+')';document.body.appendChild(d)}catch(e){}return false};
+
+var ROLES={
+lead:{n:'Team Lead & Integration',e:'🧭',c:'var(--c-lead)',d:'Medium',
+intro:'You are the glue of the team. You keep everyone moving in the same direction, manage the shared GitHub repo, draw how the app fits together, and merge everyone’s work without breaking it.',
+start:['Create a free GitHub account (github.com).','Install VS Code and GitHub Desktop.','Learn the words: repository, branch, commit, push, pull, merge, pull request.','Draw a simple diagram: Frontend → Backend → Database.','Create a Trello board with one card per member and task.','Practice: make a branch, change a file, commit, push, open a pull request.'],
+learn:'Git/GitHub workflows, architecture diagrams and task delegation.',
+tools:[
+{name:'GitHub Desktop',what:'Visual app to manage Git without typing commands.',how:'Create a repo → make changes → write a commit message → push. Create branches from the top menu.',get:'https://desktop.github.com/'},
+{name:'VS Code',what:'The code editor everyone on the team uses.',how:'Open a folder, edit files, use the built-in terminal and the Source Control panel for Git.',get:'https://code.visualstudio.com/'},
+{name:'Draw.io',what:'Free diagram tool that runs in the browser.',how:'Drag shapes onto the canvas, connect them with arrows, export as PNG/SVG.',get:'https://app.diagrams.net/'},
+{name:'Trello',what:'Kanban board to track who does what.',how:'Make lists (To do / Doing / Done), add cards with owners and due dates.',get:'https://trello.com/'},
+{name:'Discord',what:'Team chat and screen sharing.',how:'Create a server, make channels per topic, share your screen during calls.',get:'https://discord.com/'}
+],
+yt:[
+{t:'Git & GitHub for Beginners (freeCodeCamp)',u:'https://www.youtube.com/watch?v=RGOj5yH7evk',lvl:'start'},
+{t:'Git Branches & Merging Explained (Fireship)',u:'https://www.youtube.com/watch?v=e2IbNHi4wOM',lvl:'next'},
+{t:'How to resolve merge conflicts',u:'https://www.youtube.com/results?search_query=resolve+git+merge+conflicts+beginner',lvl:'adv'},
+{t:'Software architecture for beginners (ByteByteGo)',u:'https://www.youtube.com/@ByteByteGo',lvl:'adv'}
+],
+ch:[['ByteByteGo','https://www.youtube.com/@ByteByteGo'],['Hussein Nasser','https://www.youtube.com/@hnasr']],
+roadmap:[
+{m:'Month 1 · Foundations',w:['Week 1: GitHub account + first repository + README','Week 2: Branches, commits and push/pull','Week 3: Pull requests and code review','Week 4: Merge conflicts + app diagram in Draw.io']},
+{m:'Month 2 · Team flow',w:['Week 5: Branch protection rules + review checklist','Week 6: Simple automated test on push','Week 7: Release notes and version tags','Week 8: Fix an integration error as a team']},
+{m:'Month 3 · Small project',w:['Week 9: Plan the mini-app together','Week 10: Integrate frontend + backend + database','Week 11: End-to-end test and bug fixes','Week 12: Demo day + final README']},{m:'Month 4 · Polish & launch',w:['Week 13: Fix all reported bugs','Week 14: Add final features and polish','Week 15: Final testing and security review','Week 16: Final demo + graduation']}
+],
+project:'A “Team Task Board” web app where members add tasks and see them saved, deployed free on Render or GitHub Pages.'},
+front:{n:'Frontend & UI/UX',e:'🎨',c:'var(--c-front)',d:'Easy to Medium',
+intro:'You build what users see and touch. You turn ideas into pages with HTML, make them pretty with CSS, and make them react with JavaScript. You also design screens in Figma before coding.',
+start:['Install VS Code and Google Chrome.','Learn HTML tags: h1, p, button, input, form, div.','Learn CSS: colors, flexbox, grid, media queries.','Learn JavaScript: variables, functions, click events, fetch().','Practice in CodePen before touching the team repo.'],
+learn:'HTML5 structure, responsive CSS and JavaScript click/fetch events.',
+tools:[
+{name:'VS Code',what:'Code editor with live preview extensions.',how:'Write HTML/CSS/JS, use the Live Server extension to preview in browser.',get:'https://code.visualstudio.com/'},
+{name:'Figma',what:'Free design tool for screens and prototypes.',how:'Create frames, add text/buttons, share a link for feedback.',get:'https://www.figma.com/'},
+{name:'Chrome DevTools',what:'Built into Chrome; inspect and debug pages.',how:'Right-click → Inspect. Use Elements, Console, Network tabs.',get:'https://developer.chrome.com/docs/devtools/'},
+{name:'CodePen',what:'Browser playground for HTML/CSS/JS.',how:'Paste code in three panels and see the result instantly.',get:'https://codepen.io/'},
+{name:'Bootstrap Studio',what:'Drag-and-drop website builder (optional).',how:'Drag components, export clean HTML/CSS.',get:'https://bootstrapstudio.io/'}
+],
+yt:[
+{t:'HTML & CSS Full Course (SuperSimpleDev)',u:'https://www.youtube.com/watch?v=G3e-cpL7ofc',lvl:'start'},
+{t:'JavaScript Tutorial for Beginners (Programming with Mosh)',u:'https://www.youtube.com/watch?v=W6NZfCO5SIk',lvl:'start'},
+{t:'CSS Flexbox in 100 Seconds (Fireship)',u:'https://www.youtube.com/watch?v=K74l26pE4YA',lvl:'next'},
+{t:'Responsive design & media queries',u:'https://www.youtube.com/results?search_query=responsive+web+design+media+queries+beginner',lvl:'adv'}
+],
+ch:[['Traversy Media','https://www.youtube.com/@TraversyMedia'],['Kevin Powell','https://www.youtube.com/@KevinPowell']],
+roadmap:[
+{m:'Month 1 · Foundations',w:['Week 1: HTML structure and forms','Week 2: CSS colors, spacing, flexbox','Week 3: Responsive layout with media queries','Week 4: JavaScript variables, functions, DOM']},
+{m:'Month 2 · Interactivity',w:['Week 5: Click events and form validation','Week 6: fetch() to call a backend route','Week 7: Loading states and error messages','Week 8: Polish UI in Figma then code it']},
+{m:'Month 3 · Small project',w:['Week 9: Design the mini-app screens in Figma','Week 10: Build the pages in HTML/CSS','Week 11: Wire buttons to backend','Week 12: Test on phone + desktop, fix bugs']},{m:'Month 4 · Polish & launch',w:['Week 13: Responsive polish and animations','Week 14: Accessibility and performance','Week 15: Final UI review with team','Week 16: Final demo + launch']}
+],
+project:'The user-facing pages of the Team Task Board: add-task form, task list, and a clean mobile-friendly layout.'},
+back:{n:'Backend & API',e:'⚙️',c:'var(--c-back)',d:'Hard',
+intro:'You are the brain of the app. You write Python code that receives requests from the frontend, applies logic, talks to the database, and sends answers back as JSON. You build REST APIs with FastAPI or Flask.',
+start:['Install Python from python.org (check “Add to PATH”).','Install VS Code and the Python extension.','Learn Python: variables, loops, functions, dictionaries, lists.','Learn what an API is: routes, GET/POST, JSON, status codes.','Run your first FastAPI server locally.'],
+learn:'Python fundamentals (loops, functions, dictionaries) and REST APIs with Flask or FastAPI.',
+tools:[
+{name:'VS Code',what:'Editor with Python support.',how:'Install Python extension; run files with the play button or terminal.',get:'https://code.visualstudio.com/'},
+{name:'Python',what:'The programming language for the backend.',how:'Install from python.org; verify with `python --version` in terminal.',get:'https://www.python.org/downloads/'},
+{name:'FastAPI',what:'Modern Python framework for APIs.',how:'pip install fastapi uvicorn; create main.py with a route; run uvicorn.',get:'https://fastapi.tiangolo.com/'},
+{name:'Postman',what:'Test API routes without a frontend.',how:'Send GET/POST requests, inspect status codes and JSON responses.',get:'https://www.postman.com/downloads/'},
+{name:'DB Browser for SQLite',what:'View the database your API writes to.',how:'Open the .db file, browse tables and rows.',get:'https://sqlitebrowser.org/'}
+],
+yt:[
+{t:'Python for Beginners in 1 Hour (Mosh Hamedani)',u:'https://www.youtube.com/watch?v=kqtD5dpn9C8',lvl:'start'},
+{t:'FastAPI Course for Beginners (freeCodeCamp)',u:'https://www.youtube.com/results?search_query=fastapi+course+beginners+freecodecamp',lvl:'start'},
+{t:'REST API concepts in 100 Seconds (Fireship)',u:'https://www.youtube.com/watch?v=-MTSQjw5DrM',lvl:'next'},
+{t:'Python dictionaries & JSON',u:'https://www.youtube.com/results?search_query=python+dictionaries+json+beginner',lvl:'adv'}
+],
+ch:[['ArjanCodes','https://www.youtube.com/@ArjanCodes'],['Programming with Patrick','https://www.youtube.com/@programmingwithpatrick']],
+roadmap:[
+{m:'Month 1 · Foundations',w:['Week 1: Python basics (variables, loops, functions)','Week 2: Dictionaries, lists and JSON','Week 3: Install FastAPI, first GET route','Week 4: POST route that saves data in memory']},
+{m:'Month 2 · Data & structure',w:['Week 5: Connect to SQLite database','Week 6: CRUD routes (create/read/update/delete)','Week 7: Input validation and error responses','Week 8: Test all routes in Postman']},
+{m:'Month 3 · Small project',w:['Week 9: Design the task API contract with frontend','Week 10: Implement task routes','Week 11: Connect frontend to backend','Week 12: Fix bugs and document the API']},{m:'Month 4 · Polish & launch',w:['Week 13: Add authentication and security','Week 14: Optimize and add caching','Week 15: Final API review and docs','Week 16: Final demo + launch']}
+],
+project:'The API for the Team Task Board: routes to add, list and delete tasks, backed by SQLite.'},
+db:{n:'Database & Infrastructure',e:'🗄️',c:'var(--c-db)',d:'Medium to Hard',
+intro:'You design where data lives. You create tables, write SQL to store and fetch data, and make sure the database connects cleanly to the backend. You also draw the data model so everyone understands it.',
+start:['Install DB Browser for SQLite (no server needed).','Learn what a table, row, column and primary key are.','Learn SQL: CREATE, INSERT, SELECT, UPDATE, DELETE.','Practice queries in DB Browser.','Draw the table design in Draw.io.'],
+learn:'Relational tables, SQL CRUD operations and connecting SQLite to Python.',
+tools:[
+{name:'DB Browser for SQLite',what:'Visual editor for SQLite databases.',how:'Open/create a .db file, run SQL in the Execute SQL tab, browse tables.',get:'https://sqlitebrowser.org/'},
+{name:'DBeaver',what:'Universal database client (optional, more advanced).',how:'Connect to SQLite or other DBs; run queries and view diagrams.',get:'https://dbeaver.io/'},
+{name:'VS Code',what:'Edit SQL and Python glue code.',how:'Use SQL extensions for highlighting and formatting.',get:'https://code.visualstudio.com/'},
+{name:'Draw.io',what:'Draw the data model (ER diagram).',how:'Use entity shapes, connect tables by keys.',get:'https://app.diagrams.net/'}
+],
+yt:[
+{t:'SQL for Beginners (freeCodeCamp)',u:'https://www.youtube.com/watch?v=HXV3zeQKqGY',lvl:'start'},
+{t:'SQLite with Python (Corey Schafer)',u:'https://www.youtube.com/results?search_query=sqlite+python+corey+schafer',lvl:'start'},
+{t:'Database design & normalization',u:'https://www.youtube.com/results?search_query=database+design+normalization+beginner',lvl:'next'},
+{t:'SQL JOINs explained',u:'https://www.youtube.com/results?search_query=sql+joins+explained+beginner',lvl:'adv'}
+],
+ch:[['Caleb Curry','https://www.youtube.com/@CalebTheVideoMaker2'],['Database Star','https://www.youtube.com/@databasestar']],
+roadmap:[
+{m:'Month 1 · Foundations',w:['Week 1: Tables, rows, columns, primary keys','Week 2: CREATE TABLE and INSERT','Week 3: SELECT with WHERE and ORDER BY','Week 4: UPDATE and DELETE safely']},
+{m:'Month 2 · Relations',w:['Week 5: Foreign keys and relationships','Week 6: JOINs across tables','Week 7: Draw ER diagram of the app','Week 8: Connect SQLite to Python backend']},
+{m:'Month 3 · Small project',w:['Week 9: Design task + member tables','Week 10: Create and seed the database','Week 11: Test queries with the backend','Week 12: Backup and document the schema']},{m:'Month 4 · Polish & launch',w:['Week 13: Optimize queries and add indexes','Week 14: Add backup automation','Week 15: Final schema review','Week 16: Final demo + launch']}
+],
+project:'The database for the Team Task Board: members and tasks tables with a clean, documented schema.'},
+sec:{n:'Cyber Security & QA',e:'🛡️',c:'var(--c-sec)',d:'Hard',
+intro:'You protect the app and break it before attackers do. You learn Linux, test inputs, scan for common vulnerabilities (OWASP Top 10), and report issues so the team fixes them. You also write simple tests.',
+start:['Install VirtualBox, then Kali Linux inside it.','Learn 10 basic Linux commands: ls, cd, cat, grep, find, pwd, chmod, sudo, apt, man.','Learn HTTP/HTTPS, status codes, headers.','Learn the CIA triad and OWASP Top 10.','Practice scanning a local app with OWASP ZAP.'],
+learn:'Linux terminal, HTTP/HTTPS headers, threat modeling and OWASP vulnerabilities.',
+tools:[
+{name:'Kali Linux',what:'Linux distro packed with security tools.',how:'Run inside VirtualBox; open terminal and practice commands.',get:'https://www.kali.org/get-kali/'},
+{name:'VirtualBox',what:'Runs other operating systems on your laptop.',how:'Install VirtualBox, create a VM, load the Kali ISO.',get:'https://www.virtualbox.org/'},
+{name:'Burp Suite Community',what:'Intercept and inspect web traffic.',how:'Set browser proxy to Burp, capture requests, replay them.',get:'https://portswigger.net/burp/communitydownload'},
+{name:'OWASP ZAP',what:'Free web app vulnerability scanner.',how:'Enter the app URL, run an automated scan, read the report.',get:'https://www.zaproxy.org/download/'},
+{name:'Wireshark',what:'Packet analyzer for network traffic.',how:'Capture on an interface, filter by protocol, follow streams.',get:'https://www.wireshark.org/download.html'}
+],
+yt:[
+{t:'Linux Command Line Basics (NetworkChuck)',u:'https://www.youtube.com/watch?v=VbEx7B_PTOE',lvl:'start'},
+{t:'Web Security & OWASP Top 10 (InsiderPhD)',u:'https://www.youtube.com/results?search_query=owasp+top+10+explained+beginner',lvl:'start'},
+{t:'Burp Suite basics',u:'https://www.youtube.com/results?search_query=burp+suite+community+beginner+tutorial',lvl:'next'},
+{t:'SQL injection explained',u:'https://www.youtube.com/results?search_query=sql+injection+explained+beginner',lvl:'adv'}
+],
+ch:[['John Hammond','https://www.youtube.com/@_JohnHammond'],['TCM Security Academy','https://www.youtube.com/@TCMSecurityAcademy']],
+roadmap:[
+{m:'Month 1 · Foundations',w:['Week 1: VirtualBox + Kali install','Week 2: 20 Linux commands and file permissions','Week 3: HTTP/HTTPS, headers, status codes','Week 4: CIA triad and threat modeling']},
+{m:'Month 2 · Testing',w:['Week 5: OWASP Top 10 overview','Week 6: Scan local app with OWASP ZAP','Week 7: Intercept requests with Burp Suite','Week 8: Test inputs for SQL injection & XSS']},
+{m:'Month 3 · Small project',w:['Week 9: Write a test checklist for the app','Week 10: Run scans and log issues','Week 11: Verify fixes with the team','Week 12: Final security report + demo']},{m:'Month 4 · Polish & launch',w:['Week 13: Final penetration test','Week 14: Security hardening','Week 15: Final security review','Week 16: Final demo + graduation']}
+],
+project:'A security review of the Team Task Board: scan report, tested inputs, and a short “how to stay safe” guide.'}
+};
+
+var K=window.__K||Object.keys(ROLES);
+var DAYS={
+'Friday · Learn':{o:'Each member completes one focused learning block and shares one takeaway in the team chat.',r:{All:'30-min team sync, then independent study. Share one takeaway by evening.',lead:'Build the Trello task list and read about the CIA triad.',front:'Sketch input fields and buttons in Figma.',back:'Practice Python dictionaries and saving data to a JSON file.',db:'Draw the table design in Draw.io and create the first tables.',sec:'Set up Kali in VirtualBox and study the CIA triad.'}},
+'Saturday · Build':{o:'One working component or lab script committed by each member.',r:{All:'Self-paced building from home or hostel. Commit at least one change.',lead:'Review pull requests and check integration.',front:'Write dynamic, interactive JavaScript elements.',back:'Set up a basic FastAPI local server.',db:'Write SQL queries on SQLite.',sec:'Work through Linux terminal labs and test basic data inputs.'}},
+'Sunday · Integrate':{o:'A working weekly version of the app. Team review on Discord or WhatsApp before Monday classes.',r:{All:'Test that a frontend input reaches the database through the backend.',lead:'Run the whole system on one laptop to check stability.',front:'Check that inputs are sent correctly to backend routes.',back:'Check that routes receive inputs and pass them to the database.',db:'Check that data from routes arrives in the database.',sec:'Test the full input-to-database flow with normal and bad inputs.'}}
+};
+
+var Q={
+lead:[{q:'Which file tells Git to ignore secrets like passwords?',o:['.gitignore','README.md','config.txt'],a:0},{q:'Draw.io is mainly used for…',o:['Architecture diagrams','Compiling code','Hosting servers'],a:0},{q:'What is a pull request?',o:['A request to merge your branch into another','Deleting a repository','A chat message'],a:0}],
+front:[{q:'Which CSS makes a flexible row layout?',o:['display: flex','position: fixed','float: none'],a:0},{q:'Which JavaScript function sends data to a backend route?',o:['fetch()','alert()','parseInt()'],a:0},{q:'Which HTML tag makes a clickable link?',o:['<a>','<p>','<div>'],a:0}],
+back:[{q:'Which HTTP method creates new data?',o:['POST','GET','HEAD'],a:0},{q:'Which Python type stores key and value pairs?',o:['dict','list','tuple'],a:0},{q:'Which status code means “Not Found”?',o:['404','200','500'],a:0}],
+db:[{q:'Which SQL command reads rows?',o:['SELECT','DROP','ALTER'],a:0},{q:'In CRUD, what does U stand for?',o:['Update','Unite','Unlock'],a:0},{q:'What makes every row unique?',o:['Primary key','Alias','Index color'],a:0}],
+sec:[{q:'What does the CIA triad stand for?',o:['Confidentiality, Integrity, Availability','Control, Inspect, Alert','Code, Install, Audit'],a:0},{q:"The input ' OR 1=1 -- is an attempt at…",o:['SQL injection','Phishing','DDoS'],a:0},{q:'Which header forces browsers to use HTTPS?',o:['Strict-Transport-Security','Content-Type','Accept'],a:0},{q:'Safest way to store passwords?',o:['Salted hash','Plain text','Base64'],a:0}]
+};
+
+var MATCH={
+lead:[['Branch','A separate line of work in Git'],['Merge','Combine branches together'],['Repository','Project folder tracked by Git'],['Trello','Board for tracking tasks']],
+front:[['HTML','Page structure'],['CSS','Colors and layout'],['DOM','The page as objects JavaScript can change'],['Responsive','Fits any screen size']],
+back:[['GET','Read data'],['POST','Create data'],['Route','URL mapped to a function'],['JSON','Common data format for APIs']],
+db:[['Table','Rows and columns of data'],['Primary key','Unique id for a row'],['INSERT','Add a new row'],['JOIN','Combine rows from tables']],
+sec:[['Phishing','Fake messages that steal info'],['Encryption','Scrambling data to protect it'],['SQL injection','Malicious input that tricks a database'],['Firewall','Filters network traffic']]
+};
+
+var TF={
+lead:[['Everyone should push straight to main with no review.',0,'Reviewed merges stop broken code reaching the team.'],['A README helps teammates understand the project.',1,'It explains the goal and how to set up.'],['git pull downloads the latest changes.',1,'Pull fetches and merges remote work.']],
+front:[['CSS can change a button’s color.',1,'CSS controls styling.'],['JavaScript can only run on a server.',0,'It also runs in the browser, which is how pages react to clicks.'],['Alt text on images helps accessibility.',1,'Screen readers read it aloud.']],
+back:[['A 200 status code means success.',1,'200 means OK.'],['Passwords should be returned in every API response.',0,'Never expose passwords in responses.'],['FastAPI is a Python framework.',1,'It builds APIs in Python.']],
+db:[['DELETE without WHERE removes every row.',1,'Always add a WHERE condition.'],['A primary key can repeat.',0,'It must be unique for each row.'],['SQLite stores a database in a single file.',1,'No server setup is needed.']],
+sec:[['Reusing one password everywhere is safe.',0,'One leak exposes every account.'],['HTTPS encrypts traffic between browser and server.',1,'It protects data in transit.'],['User input should be trusted by default.',0,'Always validate and sanitize input.']]
+};
+
+var LEARN={
+lead:{t:'A team lead keeps everyone’s work flowing into one shared project. Git branches let each person work separately, then merge safely. A simple diagram of the app (frontend, backend, database) shows who owns what.',q:[['Why do members work on separate Git branches?',['Work stays separate until it is reviewed and merged','Files are deleted automatically','Nobody needs to push'],'Branches isolate changes, so a broken feature does not block the team.'],['In the app diagram, what sits between the frontend and the database?',['The backend API','The Wi-Fi router','The CSS file'],'The backend receives requests from the frontend and talks to the database.']]},
+front:{t:'HTML gives a page its structure, CSS styles it, and JavaScript makes it react to clicks. Responsive layouts adapt to phones and laptops using flexible units and media queries.',q:[['Which language makes a button react when clicked?',['JavaScript','HTML only','CSS colors'],'JavaScript listens for events like clicks and runs code.'],['What helps one layout fit phones and laptops?',['Responsive CSS (flex, grid, media queries)','Fixed pixel widths everywhere','Bigger images only'],'Flexible layouts resize with the screen instead of breaking.']]},
+back:{t:'A backend API receives requests, runs Python logic and returns data. Each route handles one job, such as listing or saving items. Dictionaries make it easy to turn data into JSON responses.',q:[['What does an API route do?',['Handles one kind of request and returns a response','Designs the logo','Replaces the database'],'A route maps a URL and method to a function.'],['Which format do APIs usually return?',['JSON','PNG only','Word files'],'JSON is easy for both Python and JavaScript to read.']]},
+db:{t:'A relational database stores data in tables with rows and columns. A primary key identifies each row, and SQL commands create, read, update and delete data. SQLite keeps the whole database in one file, which suits a student project.',q:[['What does a table row represent?',['One record, such as one member','The whole database','A column name'],'Each row is one record, and the columns are its fields.'],['Why use SQLite for this project?',['It is a simple single-file database','It needs a big server farm','It cannot store text'],'SQLite needs no server setup, so beginners start quickly.']]},
+sec:{t:'Security protects Confidentiality, Integrity and Availability (the CIA triad). Threat modeling asks what could go wrong before attackers find it. Testing with bad inputs reveals weaknesses such as SQL injection.',q:[['What is threat modeling?',['Listing what could go wrong before attackers do','Writing the app’s CSS','Deleting old logs'],'It finds risks early, when they are cheaper to fix.'],['Why test with bad inputs?',['To find weaknesses before attackers do','To make pages faster','To change the logo'],'Unexpected input exposes flaws like injection or crashes.']]}
+};
+
+var ORDERQ={
+lead:{q:'Put the Git routine in order.',s:['Pull the latest code','Stage changes (git add)','Commit with a message','Push to GitHub']},
+front:{q:'Put the page-building steps in order.',s:['Write the HTML structure','Style it with CSS','Add a JavaScript click event','Test in Chrome DevTools']},
+back:{q:'Put the API steps in order.',s:['Install FastAPI','Define a route','Run the local server','Test it in Postman']},
+db:{q:'Put the database steps in order.',s:['Design the tables','CREATE TABLE','INSERT data','SELECT to verify']},
+sec:{q:'Put the security test in order.',s:['Threat-model the app','Scan with OWASP ZAP','Probe inputs in Burp','Report and retest']}
+};
+
+var PR={};try{PR=JSON.parse(localStorage.getItem('sq-prog')||'{}')}catch(e){}
+var M=[];try{M=JSON.parse(localStorage.getItem('sq-members')||'[]')}catch(e){M=[]}
+M.forEach(function(m){if(!m.id)m.id='m'+Math.random().toString(36).slice(2)+Date.now();});try{localStorage.setItem('sq-members',JSON.stringify(M))}catch(e){}
+var $=function(id){return document.getElementById(id);};
+var esc=function(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});};
+var shuf=function(a){a=a.slice();for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var tmp=a[i];a[i]=a[j];a[j]=tmp;}return a;};
+function save(){try{localStorage.setItem('sq-members',JSON.stringify(M))}catch(e){}}
+function saveProg(){try{localStorage.setItem('sq-prog',JSON.stringify(PR))}catch(e){}}
+function label(m,i){return m.name||'Unnamed member '+(i+1)}
+function masteredCount(){return K.filter(function(k){return PR[k];}).length}
+function nextFridayStr(){var d=new Date();var day=d.getDay();var diff=(5-day+7)%7||7; d.setDate(d.getDate()+diff);var y=d.getFullYear();var m=('0'+(d.getMonth()+1)).slice(-2);var dd=('0'+d.getDate()).slice(-2);return y+'-'+m+'-'+dd;}
+function todayStr(){var d=new Date();var y=d.getFullYear();var m=('0'+(d.getMonth()+1)).slice(-2);var dd=('0'+d.getDate()).slice(-2);return y+'-'+m+'-'+dd;}
+
+function nav(){
+ var t=[['home','Today'],['start','Start here'],['team','Team'],['road','Roadmaps'],['curric','Curriculum'],['plan','Weekly plan'],['attendance','Attendance'],['dayroad','Day roadmap'],['games','Practice games'],['tests','Tests'],['tools','Tools'],['lib','Library'],['resources','Resources'],['hack','Hackathons']].concat(window.__ADMIN?[['admin','Admin']]:[]);
+ $('nav').innerHTML=t.map(function(x,i){return '<button data-t="'+x[0]+'" class="'+(i===0?'on':'')+'">'+x[1]+'</button>';}).join('');
+ $('nav').onclick=function(e){var b=e.target.closest('button');if(!b)return;
+  document.querySelectorAll('nav button').forEach(function(x){x.classList.toggle('on',x===b);});
+  document.querySelectorAll('section').forEach(function(s){s.classList.toggle('on',s.id===b.dataset.t);});
+  window.scrollTo({top:0,behavior:'smooth'});}
+}
+function seats(){
+ $('seats').innerHTML=K.map(function(k){var r=ROLES[k],n=M.filter(function(m){return m.role===k;}).length;
+  return '<div class="seat '+(n?'on':'')+'" style="'+(n?'background:'+r.c:'')+'"><b>'+r.e+'</b><span>'+r.n.split(' ')[0]+'</span><span>'+(n?n+' assigned':'open')+'</span></div>';}).join('');
+}
+function team(){
+ $('rl').innerHTML=K.map(function(k){return '<option value="'+k+'">'+ROLES[k].n+'</option>';}).join('');
+ if(!M.length){$('list').innerHTML='<div class="card empty">No members yet. Add someone above, or create 5 blank seats and name them later.</div>';updateWho();return}
+ $('list').innerHTML=M.map(function(m,i){var r=ROLES[m.role];
+  return '<div class="card mem" style="--c:'+r.c+'"><span style="font-size:1.6rem">'+r.e+'</span>'+
+  '<input class="nm" data-i="'+i+'" value="'+esc(m.name)+'" placeholder="Unnamed member '+(i+1)+'" aria-label="Name">'+
+  '<select data-r="'+i+'" aria-label="Role">'+K.map(function(k){return '<option value="'+k+'" '+(k===m.role?'selected':'')+'>'+ROLES[k].n+'</option>';}).join('')+'</select>'+
+  '<span class="badge" style="background:'+r.c+'">'+(m.score||0)+' pts</span>'+
+  '<button class="btn" data-x="'+i+'">Remove</button></div>';}).join('');
+ updateWho();
+}
+function updateWho(){
+ var sel=$('who'); if(!sel) return;
+ var prev=sel.value;
+ sel.innerHTML='<option value="-1">Guest</option>'+M.map(function(m,i){return '<option value="'+i+'">'+esc(label(m,i))+'</option>';}).join('');
+ if(prev) sel.value=prev;
+}
+function refresh(){seats();team();gpick();roadmaps();renderTools();renderResources();renderAttendance();updateMastered()}
+function updateMastered(){var p=$('masteredPill');if(p)p.textContent=masteredCount()+' / '+K.length+' mastered'}
+
+$('add').onclick=function(){M.push({id:'m'+Math.random().toString(36).slice(2)+Date.now(),name:$('nm').value.trim(),role:$('rl').value,score:0});$('nm').value='';save();refresh();};
+$('fill').onclick=function(){K.forEach(function(k){if(!M.some(function(m){return m.role===k;}))M.push({id:'m'+Math.random().toString(36).slice(2)+Date.now(),name:'',role:k,score:0});});save();refresh();};
+$('list').onclick=function(e){var b=e.target.closest('[data-x]');if(b){M.splice(+b.dataset.x,1);save();refresh();}};
+$('list').onchange=function(e){var i=e.target.dataset.r;if(i!==undefined){M[i].role=e.target.value;save();refresh();}};
+$('list').oninput=function(e){var i=e.target.dataset.i;if(i!==undefined){M[i].name=e.target.value;save();}};
+
+function lvlTag(l){return l==='start'?'<span class="tag start">Start here</span>':l==='next'?'<span class="tag next">Next</span>':'<span class="tag adv">Advanced</span>'}
+function roadmaps(){
+ $('roles').innerHTML=K.map(function(k){var r=ROLES[k],who=M.filter(function(m){return m.role===k;}).map(function(m){return esc(label(m,M.indexOf(m)));}).join(', ');
+  return '<div class="card role" style="--c:'+r.c+'">'+
+  '<h3>'+r.e+' '+r.n+'</h3>'+
+  '<p class="muted" style="margin:4px 0">Difficulty: '+r.d+(who?' · '+who:'')+'</p>'+
+  '<p>'+r.intro+'</p>'+
+  '<details open><summary>🚀 Where to start</summary><ol style="margin:6px 0 0;padding-left:18px;font-size:.92rem">'+r.start.map(function(s){return '<li>'+esc(s)+'</li>';}).join('')+'</ol></details>'+
+  '<details><summary>🛠️ Tools: what, how to use, where to get</summary>'+r.tools.map(function(t){return '<div class="tool" style="--c:'+r.c+'"><h4>'+esc(t.name)+'</h4><p><b>What:</b> '+esc(t.what)+'</p><p><b>How to use:</b> '+esc(t.how)+'</p><p><a href="'+t.get+'" target="_blank" rel="noopener">Get it →</a></p></div>';}).join('')+'</details>'+
+  '<details><summary>🎬 YouTube: simple → advanced</summary><ul style="margin:6px 0;padding-left:18px;font-size:.92rem">'+r.yt.map(function(y){return '<li>'+lvlTag(y.lvl)+' <a href="'+y.u+'" target="_blank" rel="noopener">'+esc(y.t)+'</a></li>';}).join('')+'</ul><p class="muted" style="font-size:.85rem;margin:6px 0 0">Channels: '+r.ch.map(function(c){return '<a href="'+c[1]+'" target="_blank" rel="noopener">'+esc(c[0])+'</a>';}).join(' · ')+'</p></details>'+
+  '<details><summary>🗓️ 4-month roadmap (start → small project)</summary>'+r.roadmap.map(function(mo){return '<div class="month" style="--c:'+r.c+'"><h4>'+esc(mo.m)+'</h4><ul>'+mo.w.map(function(w){return '<li>'+esc(w)+'</li>';}).join('')+'</ul></div>';}).join('')+'<p style="margin:8px 0 0"><b>Final small project:</b> '+esc(r.project)+'</p></details>'+
+  '</div>';}).join('');
+}
+
+function renderTools(){
+ var filter=$('toolfilters'); if(!filter) return;
+ filter.innerHTML=K.map(function(k){return '<button class="btn" data-tf="'+k+'" style="border-color:'+ROLES[k].c+'">'+ROLES[k].e+' '+ROLES[k].n.split(' ')[0]+'</button>';}).join('')+'<button class="btn pri" data-tf="all">All</button>';
+ var show=function(key){
+  var roles = key==='all'?K:[key];
+  var html='';
+  roles.forEach(function(k){var r=ROLES[k]; r.tools.forEach(function(t){html+='<div class="card toolcard" style="--c:'+r.c+'"><h3 style="font-size:1.05rem">'+r.e+' '+esc(t.name)+'</h3><p class="muted" style="margin:2px 0;font-size:.85rem">Used by: '+esc(r.n)+'</p><p style="margin:4px 0"><b>What:</b> '+esc(t.what)+'</p><p style="margin:4px 0"><b>How to use:</b> '+esc(t.how)+'</p><p style="margin:6px 0 0"><a href="'+t.get+'" target="_blank" rel="noopener" style="color:'+r.c+';font-weight:700">Download / open →</a></p></div>';});});
+  $('toolgrid').innerHTML=html;
+ };
+ filter.onclick=function(e){var b=e.target.closest('[data-tf]');if(!b)return;filter.querySelectorAll('button').forEach(function(x){x.classList.toggle('pri',x===b);});show(b.dataset.tf);};
+ show('all');
+}
+
+function plan(){
+ var names=Object.keys(DAYS);
+ $('days').innerHTML=names.map(function(d,i){return '<button class="btn '+(i===0?'pri':'')+'" data-d="'+d+'">'+d.split(' ·')[0]+'</button>';}).join('');
+ var show=function(d){var x=DAYS[d];
+  $('day').innerHTML='<div class="card"><h3>'+d+'</h3><div class="tw"><table class="sched">'+
+  [['All','Everyone']].concat(K.map(function(k){return [k,ROLES[k].n];})).map(function(pair){var k=pair[0],n=pair[1];return '<tr><td style="width:36%"><b>'+(k==='All'?'Everyone':ROLES[k].e+' '+n)+'</b></td><td>'+x.r[k]+'</td></tr>';}).join('')+
+  '</table></div><p><b>Expected output:</b> '+x.o+'</p></div>';};
+ $('days').onclick=function(e){var b=e.target.closest('[data-d]');if(!b)return;
+  document.querySelectorAll('#days .btn').forEach(function(x){x.classList.toggle('pri',x===b);});show(b.dataset.d);};
+ show(names[0]);
+}
+
+// Attendance
+var ATT={};try{ATT=JSON.parse(localStorage.getItem('sq-att')||'{}')}catch(e){ATT={}}
+var DAYDONE={};try{DAYDONE=JSON.parse(localStorage.getItem('sq-daydone')||'{}')}catch(e){DAYDONE={}}
+function saveAtt(){try{localStorage.setItem('sq-att',JSON.stringify(ATT))}catch(e){}}
+function saveDayDone(){try{localStorage.setItem('sq-daydone',JSON.stringify(DAYDONE))}catch(e){}}
+function studyDays(){
+ var s=$('attStart')?$('attStart').value:''; if(!s){s=localStorage.getItem('sq-att-start')||nextFridayStr();if($('attStart'))$('attStart').value=s;}
+ var start=new Date(s+'T00:00:00'); if(isNaN(start.getTime())){start=new Date(nextFridayStr()+'T00:00:00');} var days=[];
+ for(var w=0;w<17;w++)for(var d=0;d<3;d++){var date=new Date(start);date.setDate(start.getDate()+w*7+d);var yy=date.getFullYear();var mm=('0'+(date.getMonth()+1)).slice(-2);var dd2=('0'+date.getDate()).slice(-2);days.push({idx:w*3+d,week:w+1,dayName:['Friday','Saturday','Sunday'][d],dateStr:yy+'-'+mm+'-'+dd2});}
+ return days;
+}
+function markMissed(){
+ var t=todayStr(); studyDays().forEach(function(sd){if(sd.dateStr<t){M.forEach(function(m){if(!ATT[m.id])ATT[m.id]={};if(!ATT[m.id][sd.idx]) ATT[m.id][sd.idx]='missed';});}});saveAtt();}
+function renderAttendance(){
+ markMissed();
+ var days=studyDays(); var t=todayStr(); var cur=days.find(function(d){return d.dateStr===t;});
+ var box=$('attCurrent');
+ if(box){if(cur) box.innerHTML='<div class="card" style="border-left:6px solid var(--c-lead)"><b>Today: '+cur.dayName+', Week '+cur.week+'</b> — check in now. Past days are locked.</div>';else box.innerHTML='<div class="card muted">No study day today. Check-ins open on study days only.</div>';}
+ var grid=$('attGrid'); if(!grid) return;
+ var weekDays=cur?days.filter(function(d){return d.week===cur.week;}):days.slice(0,3);
+ var h='<div class="tw"><table class="sched"><tr><th style="text-align:left;padding:8px">Member</th>'+weekDays.map(function(d){return '<th style="padding:8px">'+d.dayName.slice(0,3)+'<br><span class="muted" style="font-size:.7rem">'+d.dateStr+'</span></th>';}).join('')+'</tr>';
+ M.forEach(function(m){h+='<tr><td style="padding:8px"><b>'+esc(label(m,M.indexOf(m)))+'</b><br><span class="muted" style="font-size:.75rem">'+ROLES[m.role].e+' '+ROLES[m.role].n.split(' ')[0]+'</span></td>';
+  weekDays.forEach(function(d){var st=(ATT[m.id]||{})[d.idx];var cell='';if(d.dateStr===t){if(st==='present') cell='<span class="badge" style="background:#2f9e44">Present ✓</span>';else cell='<button class="btn pri" data-checkin="'+m.id+'" data-day="'+d.idx+'">Check in</button>';}else if(d.dateStr<t){cell=st==='present'?'<span class="badge" style="background:#2f9e44">Present</span>':'<span class="badge" style="background:#e03131">Missed</span>';}else{cell='<span class="muted">Upcoming</span>';}h+='<td style="padding:8px;text-align:center">'+cell+'</td>';});
+  h+='</tr>';});
+ h+='</table></div>';
+ h+='<details style="margin-top:10px"><summary>Full 36-day attendance grid</summary><div class="tw"><table class="sched"><tr><th style="padding:6px">Member</th>'+days.map(function(d){return '<th style="padding:4px;font-size:.7rem">'+d.week+'.'+d.dayName[0]+'</th>';}).join('')+'</tr>';
+ M.forEach(function(m){h+='<tr><td style="padding:6px;font-size:.8rem">'+esc(label(m,M.indexOf(m)))+'</td>';
+  days.forEach(function(d){var st=(ATT[m.id]||{})[d.idx];var col=st==='present'?'#2f9e44':st==='missed'?'#e03131':'#adb5bd';h+='<td style="padding:4px;text-align:center;color:'+col+';font-weight:700">'+(st==='present'?'✓':st==='missed'?'✗':'·')+'</td>';});
+  h+='</tr>';});
+ h+='</table></div></details>';
+ grid.innerHTML=h;
+ grid.onclick=function(e){var b=e.target.closest('[data-checkin]');if(!b)return;checkIn(b.dataset.checkin,+b.dataset.day);}; generateReport();}
+function checkIn(memberId,dayIdx){var days=studyDays();var d=days[dayIdx];if(d.dateStr!==todayStr()){alert('You can only check in on the actual day.');return}if(!ATT[memberId])ATT[memberId]={};if(ATT[memberId][dayIdx]){alert('Already locked.');return}ATT[memberId][dayIdx]='present';saveAtt();renderAttendance();}
+function generateReport(){var t=todayStr();var days=studyDays();var cur=days.find(function(d){return d.dateStr===t;});var pre=$('attReport');if(!pre)return;if(!cur){pre.textContent='No study day today.';return}var txt='Attendance Report — '+cur.dayName+', Week '+cur.week+' ('+t+')\n'+'='.repeat(40)+'\n';M.forEach(function(m){var st=(ATT[m.id]||{})[cur.idx];txt+=label(m,M.indexOf(m))+' ['+ROLES[m.role].n+']: '+(st==='present'?'PRESENT':'MISSED / NOT CHECKED')+'\n';});var present=M.filter(function(m){return (ATT[m.id]||{})[cur.idx]==='present';}).length;txt+='\nTotal present: '+present+'/'+M.length;pre.textContent=txt;}
+function downloadReport(){var pre=$('attReport');if(!pre)return;var blob=new Blob([pre.textContent],{type:'text/plain'});var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download='attendance-report.txt';a.click();URL.revokeObjectURL(url);}
+function exportCSV(){var days=studyDays();var csv='Member,Role,'+days.map(function(d){return 'W'+d.week+'-'+d.dayName.slice(0,3);}).join(',')+'\n';M.forEach(function(m){csv+='"'+label(m,M.indexOf(m))+'","'+ROLES[m.role].n+'",'+days.map(function(d){var st=(ATT[m.id]||{})[d.idx];return st==='present'?'P':st==='missed'?'M':'-';}).join(',')+'\n';});var blob=new Blob([csv],{type:'text/csv'});var url=URL.createObjectURL(blob);var a=document.createElement('a');a.href=url;a.download='attendance-all.csv';a.click();URL.revokeObjectURL(url);}
+
+// Day-wise roadmap
+var DAYROAD=[
+{w:1,theme:'Setup & basics',days:[{d:'Friday',tasks:{lead:'Create GitHub repo, README and Trello board.',front:'Install VS Code; write first HTML page.',back:'Install Python; print Hello and a loop.',db:'Install DB Browser; create members table.',sec:'Install VirtualBox + Kali; learn 5 Linux commands.'}},{d:'Saturday',tasks:{lead:'Learn branches and commits; make a test branch.',front:'Style the page with CSS colors and flexbox.',back:'Practice dictionaries and save data to JSON.',db:'Write INSERT and SELECT queries.',sec:'Study the CIA triad and 5 more commands.'}},{d:'Sunday',tasks:{lead:'Merge the test branch and run the app.',front:'Add a button click event in JS.',back:'Build first FastAPI GET route.',db:'Connect SQLite to Python (read rows).',sec:'Test a simple input for SQL injection.'}}]},
+{w:2,theme:'Core skills',days:[{d:'Friday',tasks:{lead:'Set branch rules and review checklist.',front:'Build a form with validation.',back:'Create POST route that saves data.',db:'Design tasks table with foreign key.',sec:'Scan a local page with OWASP ZAP.'}},{d:'Saturday',tasks:{lead:'Resolve a merge conflict practice.',front:'Use fetch() to call backend.',back:'Add input validation and errors.',db:'Write JOIN between members and tasks.',sec:'Intercept a request in Burp Suite.'}},{d:'Sunday',tasks:{lead:'Integration test on one laptop.',front:'Show loading and error states.',back:'Test all routes in Postman.',db:'Seed the database with sample data.',sec:'Report one finding to the team.'}}]},
+{w:3,theme:'Connecting pieces',days:[{d:'Friday',tasks:{lead:'Plan mini-app features with team.',front:'Design screens in Figma.',back:'Define API contract with frontend.',db:'Finalize ER diagram.',sec:'Write test checklist for app.'}},{d:'Saturday',tasks:{lead:'Track tasks on Trello; remove blockers.',front:'Code the designed screens.',back:'Implement task CRUD routes.',db:'Optimize queries with indexes.',sec:'Test inputs for XSS.'}},{d:'Sunday',tasks:{lead:'Run end-to-end test.',front:'Wire buttons to backend.',back:'Connect frontend to API.',db:'Verify data flow to DB.',sec:'Verify fixes and retest.'}}]},
+{w:4,theme:'Polish',days:[{d:'Friday',tasks:{lead:'Review code and merge PRs.',front:'Make layout responsive.',back:'Add status codes and messages.',db:'Backup database file.',sec:'Re-scan after changes.'}},{d:'Saturday',tasks:{lead:'Write release notes v1.',front:'Improve accessibility (alt text).',back:'Document API routes.',db:'Document schema.',sec:'Update security report.'}},{d:'Sunday',tasks:{lead:'Demo weekly version.',front:'Test on phone + desktop.',back:'Fix backend bugs.',db:'Fix data bugs.',sec:'Final check of inputs.'}}]},
+{w:5,theme:'Deepen',days:[{d:'Friday',tasks:{lead:'Set up simple CI test on push.',front:'Learn CSS grid advanced.',back:'Learn FastAPI dependencies.',db:'Learn transactions.',sec:'Learn password hashing.'}},{d:'Saturday',tasks:{lead:'Review teammate PRs.',front:'Build a reusable component.',back:'Add a search route.',db:'Add an index and explain why.',sec:'Try a dictionary attack demo.'}},{d:'Sunday',tasks:{lead:'Integration + stability check.',front:'Integrate component.',back:'Test search in Postman.',db:'Verify search query.',sec:'Log results.'}}]},
+{w:6,theme:'Quality',days:[{d:'Friday',tasks:{lead:'Create bug tracker list.',front:'Fix UI bugs.',back:'Fix API bugs.',db:'Fix data bugs.',sec:'Retest fixed bugs.'}},{d:'Saturday',tasks:{lead:'Update architecture diagram.',front:'Add dark mode.',back:'Add rate limiting idea.',db:'Add constraints.',sec:'Check headers (HSTS).'}},{d:'Sunday',tasks:{lead:'Team review on Discord.',front:'Final UI polish.',back:'Final API polish.',db:'Final DB polish.',sec:'Final security pass.'}}]},
+{w:7,theme:'Advanced',days:[{d:'Friday',tasks:{lead:'Plan v2 features.',front:'Learn animations.',back:'Learn auth basics.',db:'Learn backups.',sec:'Learn JWT basics.'}},{d:'Saturday',tasks:{lead:'Delegate v2 tasks.',front:'Add a small animation.',back:'Add login route (demo).',db:'Automate backup.',sec:'Test auth flow.'}},{d:'Sunday',tasks:{lead:'Integrate v2.',front:'Test animation.',back:'Test login.',db:'Restore from backup.',sec:'Report auth issues.'}}]},
+{w:8,theme:'Testing',days:[{d:'Friday',tasks:{lead:'Write test plan.',front:'Write UI checklist.',back:'Write API tests.',db:'Write DB tests.',sec:'Write security tests.'}},{d:'Saturday',tasks:{lead:'Run tests.',front:'Fix UI test failures.',back:'Fix API test failures.',db:'Fix DB test failures.',sec:'Fix security failures.'}},{d:'Sunday',tasks:{lead:'Review results.',front:'Retest.',back:'Retest.',db:'Retest.',sec:'Retest.'}}]},
+{w:9,theme:'Project prep',days:[{d:'Friday',tasks:{lead:'Finalize project scope.',front:'Final design in Figma.',back:'Final API contract.',db:'Final schema.',sec:'Final test plan.'}},{d:'Saturday',tasks:{lead:'Create final task board.',front:'Build final pages.',back:'Build final routes.',db:'Create final DB.',sec:'Set up final scans.'}},{d:'Sunday',tasks:{lead:'Integration checkpoint.',front:'Connect pages.',back:'Connect routes.',db:'Connect DB.',sec:'First scan.'}}]},
+{w:10,theme:'Build',days:[{d:'Friday',tasks:{lead:'Track progress daily.',front:'Finish UI.',back:'Finish API.',db:'Finish DB.',sec:'Run ZAP scan.'}},{d:'Saturday',tasks:{lead:'Unblock members.',front:'Polish UI.',back:'Polish API.',db:'Polish DB.',sec:'Burp testing.'}},{d:'Sunday',tasks:{lead:'Integration test.',front:'E2E test.',back:'E2E test.',db:'E2E test.',sec:'E2E security test.'}}]},
+{w:11,theme:'Fix & document',days:[{d:'Friday',tasks:{lead:'Collect bugs.',front:'Fix UI bugs.',back:'Fix API bugs.',db:'Fix DB bugs.',sec:'Fix security bugs.'}},{d:'Saturday',tasks:{lead:'Write README.',front:'Add screenshots.',back:'Document API.',db:'Document schema.',sec:'Write security report.'}},{d:'Sunday',tasks:{lead:'Final review.',front:'Final UI check.',back:'Final API check.',db:'Final DB check.',sec:'Final security check.'}}]},
+{w:12,theme:'Demo',days:[{d:'Friday',tasks:{lead:'Prepare demo slides.',front:'Final polish.',back:'Final polish.',db:'Final polish.',sec:'Final report.'}},{d:'Saturday',tasks:{lead:'Rehearse demo.',front:'Rehearse.',back:'Rehearse.',db:'Rehearse.',sec:'Rehearse.'}},{d:'Sunday',tasks:{lead:'Demo day + celebrate!',front:'Demo.',back:'Demo.',db:'Demo.',sec:'Demo.'}}]},{w:13,theme:'Bug fixes & polish',days:[{d:'Friday',tasks:{lead:'Collect all bugs from demo.',front:'Fix UI bugs.',back:'Fix API bugs.',db:'Fix DB bugs.',sec:'Fix security bugs.'}},{d:'Saturday',tasks:{lead:'Update architecture diagram.',front:'Polish UI details.',back:'Polish API responses.',db:'Optimize queries.',sec:'Security hardening.'}},{d:'Sunday',tasks:{lead:'Team review.',front:'Final UI check.',back:'Final API check.',db:'Final DB check.',sec:'Final security check.'}}]},{w:14,theme:'Advanced features',days:[{d:'Friday',tasks:{lead:'Plan v2 features.',front:'Add animations.',back:'Add authentication.',db:'Add backup automation.',sec:'Learn JWT basics.'}},{d:'Saturday',tasks:{lead:'Delegate v2 tasks.',front:'Build components.',back:'Implement auth routes.',db:'Automate backups.',sec:'Test auth flow.'}},{d:'Sunday',tasks:{lead:'Integrate v2.',front:'Test components.',back:'Test auth.',db:'Test backups.',sec:'Report issues.'}}]},{w:15,theme:'Testing & docs',days:[{d:'Friday',tasks:{lead:'Write test plan.',front:'Write UI tests.',back:'Write API tests.',db:'Write DB tests.',sec:'Write security tests.'}},{d:'Saturday',tasks:{lead:'Run all tests.',front:'Fix UI failures.',back:'Fix API failures.',db:'Fix DB failures.',sec:'Fix security failures.'}},{d:'Sunday',tasks:{lead:'Review results.',front:'Retest UI.',back:'Retest API.',db:'Retest DB.',sec:'Retest security.'}}]},{w:16,theme:'Final launch',days:[{d:'Friday',tasks:{lead:'Prepare final demo.',front:'Final polish.',back:'Final polish.',db:'Final polish.',sec:'Final report.'}},{d:'Saturday',tasks:{lead:'Rehearse final demo.',front:'Rehearse.',back:'Rehearse.',db:'Rehearse.',sec:'Rehearse.'}},{d:'Sunday',tasks:{lead:'Final demo + graduation!',front:'Demo.',back:'Demo.',db:'Demo.',sec:'Demo.'}}]}];
+function dayRoadDate(week, dayIdx) {
+  var s = localStorage.getItem('sq-att-start') || nextFridayStr();
+  var start = new Date(s + 'T00:00:00');
+  if (isNaN(start.getTime())) start = new Date(nextFridayStr() + 'T00:00:00');
+  var d = new Date(start);
+  d.setDate(start.getDate() + (week - 1) * 7 + dayIdx);
+  var y=d.getFullYear(); var m=('0'+(d.getMonth()+1)).slice(-2); var dd=('0'+d.getDate()).slice(-2);
+  return y+'-'+m+'-'+dd;
+}
+function renderDayRoad(){var tabs=$('weekTabs');if(!tabs)return;tabs.innerHTML=DAYROAD.map(function(w,i){return '<button class="btn '+(i===0?'pri':'')+'" data-w="'+w.w+'">Week '+w.w+'</button>';}).join('');var show=function(w){var wk=DAYROAD.find(function(x){return x.w===w;});var view=$('weekView');if(!view)return;view.innerHTML='<div class="card"><h3 style="margin-bottom:6px">Week '+wk.w+' · '+esc(wk.theme)+'</h3><p class="muted" style="margin:0;font-size:.85rem">Dates follow your attendance start date.</p></div>'+wk.days.map(function(day,di){var doneKey='w'+wk.w+'-'+day.d;var done=DAYDONE[doneKey];var dateStr=dayRoadDate(wk.w,di);var isToday=dateStr===todayStr();var isPast=dateStr<todayStr();return '<div class="card" style="'+(isToday?'border-left:6px solid var(--c-lead)':'')+'"><h3>'+esc(day.d)+' <span class="muted" style="font-size:.85rem;font-weight:400">— '+dateStr+(isToday?' (Today)':isPast?' (Done)':'')+'</span></h3><div class="grid" style="margin-top:8px">'+K.map(function(k){var r=ROLES[k];return '<div class="tool" style="--c:'+r.c+'"><h4>'+r.e+' '+r.n.split(' ')[0]+'</h4><p>'+esc(day.tasks[k])+'</p></div>';}).join('')+'</div><div class="row" style="margin-top:8px"><button class="btn '+(done?'pri':'')+'" data-done="'+doneKey+'">'+(done?'✅ Done':'Mark day done')+'</button></div></div>';}).join('');view.onclick=function(e){var b=e.target.closest('[data-done]');if(!b)return;var key=b.dataset.done;DAYDONE[key]=!DAYDONE[key];saveDayDone();renderDayRoadWeek(wk.w);};};function renderDayRoadWeek(w){show(w);}tabs.onclick=function(e){var b=e.target.closest('[data-w]');if(!b)return;tabs.querySelectorAll('button').forEach(function(x){x.classList.toggle('pri',x===b);});show(+b.dataset.w);};show(1);}
+
+
+// Games
+var G=null;
+function gpick(){$('gpick').innerHTML='<div class="card"><h3 style="margin-bottom:6px">Role practice</h3><p class="muted" style="margin:0 0 8px">Pick a role to practice with quizzes, matching, rapid-fire and a learn path.</p><div class="grid">'+K.map(function(k){var r=ROLES[k];return '<button class="pick" style="--c:'+r.c+'" data-g="'+k+'"><div class="big">'+r.e+'</div><h3>'+r.n+'</h3><span class="muted">'+(PR[k]?'✅ Path mastered':'4 ways to practice')+'</span></button>';}).join('')+'</div></div>';if(G&&G.who!==undefined&&$('who'))$('who').value=G.who;}
+$('gpick').onclick=function(e){var b=e.target.closest('[data-g]');if(!b)return;G={role:b.dataset.g,who:$('who').value};menu();$('game').scrollIntoView({behavior:'smooth'});};
+$('who').onchange=function(e){if(G)G.who=e.target.value;};
+
+function render(){var r=ROLES[G.role],qs=Q[G.role],g=$('game');if(G.i>=qs.length){var max=qs.length*10,w=+G.who;if(w>=0&&M[w]&&!G.saved){M[w].score=(M[w].score||0)+G.s;G.saved=1;save();team()}g.innerHTML='<div class="card" style="--c:'+r.c+';text-align:center"><div class="big">'+G.s+' / '+max+'</div><p>'+(G.s===max?'Perfect round!':G.s>=max/2?'Solid work. Try again for full marks.':'Good start. Review the roadmap and replay.')+'</p><button class="btn pri" id="again">Play again</button></div>';if(G.s===max)confetti();$('again').onclick=function(){G.i=0;G.s=0;G.saved=0;render();};return}var q=qs[G.i],bar='<div class="bar" style="--c:'+r.c+'"><i style="width:'+(G.i/qs.length*100)+'%"></i></div>';var h='<div class="card" style="--c:'+r.c+'"><div class="row" style="justify-content:space-between"><b>'+r.e+' '+r.n+'</b><span class="badge" style="background:'+r.c+'">'+G.s+' pts</span></div>'+bar+'<h3 style="margin:8px 0">'+esc(q.q)+'</h3>';if(q.o){var idx=shuf(q.o.map(function(_,i){return i;}));h+=idx.map(function(i){return '<button class="opt" style="--c:'+r.c+'" data-o="'+i+'">'+esc(q.o[i])+'</button>';}).join('')+'</div>';g.innerHTML=h;var done=0;g.onclick=function(e){var b=e.target.closest('[data-o]');if(!b||done)return;if(+b.dataset.o===q.a){done=1;b.classList.add('ok');G.s+=10;setTimeout(function(){G.i++;render();},700)}else{b.classList.add('bad');}}}else{var next=0,miss=0;var order=shuf(q.s);h+='<p class="muted">Tap the steps in the correct order.</p>'+order.map(function(s){return '<button class="opt" style="--c:'+r.c+'" data-s="'+esc(s)+'">'+esc(s)+'</button>';}).join('')+'</div>';g.innerHTML=h;g.onclick=function(e){var b=e.target.closest('[data-s]');if(!b||b.classList.contains('ok'))return;if(b.dataset.s===q.s[next].replace(/&/g,'&amp;').replace(/</g,'&lt;')||b.textContent===q.s[next]){b.classList.add('ok');b.textContent=(next+1)+'. '+q.s[next];next++;if(next===q.s.length){G.s+=miss?5:10;setTimeout(function(){G.i++;render();},800)}}else{miss=1;b.classList.add('bad');setTimeout(function(){b.classList.remove('bad');},400)}}}}
+var g=$('game');var clk=function(fn){g.onclick=function(e){if(e.target.closest('[data-back]'))return menu();fn(e);}};function award(p){if(!G)return;var w=+G.who;if(w>=0&&M[w]){M[w].score=(M[w].score||0)+p;save();team();}}function menu(){var r=ROLES[G.role];g.innerHTML='<div class="card" style="--c:'+r.c+'"><h3>'+r.e+' '+r.n+'</h3><p class="muted">Pick how you want to practice. New to this role? Start with the learn path.</p><div class="grid">'+[['learn','📘 Learn path','Read, check with feedback, then apply'],['quiz','🎯 Quiz','Multiple choice and ordering'],['match','🧩 Match pairs','Connect terms to meanings'],['tf','⚡ Rapid true/false','Fast fact checks with reasons']].map(function(m){return '<button class="pick" style="--c:'+r.c+'" data-m="'+m[0]+'"><b>'+m[1]+'</b><br><span class="muted">'+m[2]+'</span></button>';}).join('')+'</div></div>';g.onclick=function(e){var b=e.target.closest('[data-m]');if(b)start(b.dataset.m);}}function start(m){if(m==='quiz'){G.i=0;G.s=0;G.saved=0;render()}else({match:matchGame,tf,learn})[m]();}function matchGame(){var r=ROLES[G.role],P=MATCH[G.role];var sel=null,done=0,miss=0;g.innerHTML='<div class="card" style="--c:'+r.c+'"><b>🧩 Match pairs</b><p class="muted">Tap a term, then its meaning.</p><div class="grid"><div>'+P.map(function(p,i){return '<button class="opt" data-t="'+i+'">'+esc(p[0])+'</button>';}).join('')+'</div><div>'+shuf(P.map(function(p,i){return i;})).map(function(i){return '<button class="opt" data-d="'+i+'">'+esc(P[i][1])+'</button>';}).join('')+'</div></div><p id="mm"></p><button class="btn" data-back>Change mode</button></div>';clk(function(e){var b=e.target.closest('[data-t],[data-d]');if(!b||b.classList.contains('ok'))return;if(b.dataset.t!==undefined){g.querySelectorAll('[data-t]').forEach(function(x){x.style.borderColor='';});sel=b;b.style.borderColor=r.c;return}if(!sel)return;if(sel.dataset.t===b.dataset.d){sel.classList.add('ok');b.classList.add('ok');sel.style.borderColor='';sel=null;if(++done===P.length){var p=Math.max(10-miss*2,4);award(p);$('mm').textContent='All matched! +'+p+' points';confetti();}}else{miss++;b.classList.add('bad');setTimeout(function(){b.classList.remove('bad');},400);}});}function tf(){var r=ROLES[G.role],T=shuf(TF[G.role]);var i=0,s=0;var step=function(){if(i>=T.length){award(s);g.innerHTML='<div class="card" style="text-align:center"><div class="big">'+s+' / '+(T.length*5)+'</div><p>Rapid round done.</p><button class="btn pri" data-again>Play again</button> <button class="btn" data-back>Change mode</button></div>';return}g.innerHTML='<div class="card" style="--c:'+r.c+'"><b>⚡ Rapid true/false · '+(i+1)+' of '+T.length+'</b><h3 style="margin:10px 0">'+esc(T[i][0])+'</h3><div class="row"><button class="btn pri" data-v="1">True</button><button class="btn" data-v="0">False</button></div><p id="ex"></p></div>';};clk(function(e){if(e.target.closest('[data-again]'))return tf();if(e.target.closest('[data-nx]')){i++;return step()}var b=e.target.closest('[data-v]');if(!b||$('ex').innerHTML)return;var ok=+b.dataset.v===T[i][1];if(ok)s+=5;$('ex').innerHTML='<b>'+(ok?'Correct. ':'Not quite. ')+'</b>'+esc(T[i][2])+' <button class="btn pri" data-nx>Next</button>';});step();}function order(q,r,cb,title){var n=0,miss=0;g.innerHTML='<div class="card" style="--c:'+r.c+'"><b>'+title+'</b><h3 style="margin:8px 0">'+esc(q.q)+'</h3><p class="muted">Tap the steps in the correct order.</p>'+shuf(q.s).map(function(s){return '<button class="opt" data-s="'+esc(s)+'">'+esc(s)+'</button>';}).join('')+'</div>';clk(function(e){var b=e.target.closest('[data-s]');if(!b||b.classList.contains('ok'))return;if(b.textContent===q.s[n]){b.classList.add('ok');b.textContent=(n+1)+'. '+q.s[n];if(++n===q.s.length)setTimeout(function(){cb(miss);},700)}else{miss++;b.classList.add('bad');setTimeout(function(){b.classList.remove('bad');},400);}});}function learn(){var r=ROLES[G.role],L=LEARN[G.role];var q=L.q.map(function(x){return {x:x,t:0};});var lock=0;var lesson=function(){g.innerHTML='<div class="card" style="--c:'+r.c+'"><b>📘 Step 1 of 3 · Read</b><p style="font-size:1.1rem">'+esc(L.t)+'</p><button class="btn pri" data-go>Start the check</button> <button class="btn" data-back>Change mode</button></div>';};var finish=function(){var first=!PR[G.role];if(first){PR[G.role]=1;saveProg();award(15);gpick();roadmaps();updateMastered()}g.innerHTML='<div class="card" style="text-align:center"><div class="big">🏅</div><h3>'+r.n+' path complete</h3><p>'+(first?'+15 points. ':'')+'You read it, checked it and applied it. Try a quiz or match round next.</p><button class="btn pri" data-back>Choose another mode</button></div>';g.onclick=function(e){if(e.target.closest('[data-back]'))menu();}};var apply=function(){order(ORDERQ[G.role],r,function(){finish();},'📘 Step 3 of 3 · Apply it');};var check=function(){var it=q[0];if(!it)return apply();lock=0;g.innerHTML='<div class="card" style="--c:'+r.c+'"><b>📘 Step 2 of 3 · Check</b>'+(it.t?'<span class="muted"> · second try</span>':'')+'<h3 style="margin:8px 0">'+esc(it.x[0])+'</h3>'+shuf(it.x[1].map(function(t,i){return [t,i];})).map(function(a){return '<button class="opt" data-a="'+a[1]+'">'+esc(a[0])+'</button>';}).join('')+'<p id="ex"></p></div>';};clk(function(e){if(e.target.closest('[data-go]'))return check();if(e.target.closest('[data-nx]'))return check();var a=e.target.closest('[data-a]');if(!a||lock)return;lock=1;var it=q.shift(),ok=+a.dataset.a===0;a.classList.add(ok?'ok':'bad');if(!ok){g.querySelector('[data-a="0"]').classList.add('ok');if(!it.t)q.push({x:it.x,t:1});}$('ex').innerHTML='<b>'+(ok?'Correct. ':'Not quite. ')+'</b>'+esc(it.x[2])+' <button class="btn pri" data-nx>Next</button>';});lesson();}
+
+// Mini games
+function miniMemory(){var m=$('mini');var icons=['🧭','🎨','⚙️','🗄️','🛡️','💻','🐍','🔐'];var pairs=icons.slice(0,8);var cards=shuf(pairs.concat(pairs));var flipped=[];var matched=0;var moves=0;var lock=false;m.innerHTML='<div class="card minigame"><h3>🧠 Memory match</h3><p class="muted">Flip two cards. Match all pairs. Moves: <b id="mv">0</b></p><div class="memgrid" id="mg"></div><button class="btn" data-backmini>Back</button></div>';var grid=$('mg');cards.forEach(function(ic,i){var d=document.createElement('div');d.className='memcard';d.dataset.i=i;d.dataset.v=ic;d.textContent='?';d.onclick=function(){if(lock||d.classList.contains('flipped')||d.classList.contains('matched'))return;d.classList.add('flipped');d.textContent=ic;flipped.push(d);if(flipped.length===2){moves++;$('mv').textContent=moves;lock=true;if(flipped[0].dataset.v===flipped[1].dataset.v){flipped.forEach(function(x){x.classList.add('matched');});matched++;flipped=[];lock=false;if(matched===pairs.length){award(10);confetti();$('mv').parentElement.innerHTML+='<p><b>All matched! +10 points.</b></p>';}}else{setTimeout(function(){flipped.forEach(function(x){x.classList.remove('flipped');x.textContent='?';});flipped=[];lock=false;},700);}}};grid.appendChild(d);});}
+function miniTyping(){var phrases=['const button = document.querySelector("#add");','def get_tasks(): return tasks','SELECT * FROM tasks WHERE done = 0;','git commit -m "add task feature"','<button onclick="save()">Save</button>'];var p=phrases[Math.floor(Math.random()*phrases.length)];var m=$('mini');m.innerHTML='<div class="card minigame"><h3>⌨️ Typing race</h3><p class="muted">Type the snippet as fast and accurately as you can.</p><div class="typingbox">'+esc(p)+'</div><textarea id="typin" rows="3" style="width:100%" placeholder="Start typing here..." aria-label="Typing input"></textarea><p id="typres" class="muted"></p><button class="btn" data-backmini>Back</button></div>';var inp=$('typin');var start=Date.now();var done=false;inp.oninput=function(){if(done)return;if(inp.value===p){done=true;var secs=(Date.now()-start)/1000;var wpm=Math.round((p.length/5)/(secs/60));$('typres').innerHTML='<b>Done in '+secs.toFixed(1)+'s · ~'+wpm+' WPM.</b> +'+Math.max(5,20-Math.floor(secs))+' pts';award(Math.max(5,20-Math.floor(secs)));confetti();}else if(p.startsWith(inp.value)){$('typres').textContent='Keep going…';}else{$('typres').textContent='Mismatch — check your typing.';}};}
+function miniSpeed(){var m=$('mini');var pool=[].concat.apply([],K.map(function(k){return Q[k].map(function(q){return {q:q.q,o:q.o,a:q.a,role:k};});}));var s=0,count=0,lock=false,timer=null,remaining=60;m.innerHTML='<div class="card minigame"><h3>⏱️ Speed quiz (60s)</h3><p class="muted">Answer as many as you can. Time left: <b id="tl">60</b>s · Score: <b id="ts">0</b></p><div id="sq"></div><button class="btn" data-backmini>Back</button></div>';var show=function(){var q=pool[Math.floor(Math.random()*pool.length)];$('sq').innerHTML='<h3 style="margin:8px 0">'+esc(q.q)+'</h3>'+shuf(q.o.map(function(_,i){return i;})).map(function(i){return '<button class="opt" data-o="'+i+'" data-correct="'+q.a+'">'+esc(q.o[i])+'</button>';}).join('');$('sq').onclick=function(e){var b=e.target.closest('[data-o]');if(!b||lock)return;lock=true;if(+b.dataset.o===+b.dataset.correct){b.classList.add('ok');s+=5;$('ts').textContent=s}else{b.classList.add('bad');var c=$('sq').querySelector('[data-o="'+b.dataset.correct+'"]');if(c)c.classList.add('ok');}count++;setTimeout(function(){lock=false;show();},500);}};show();timer=setInterval(function(){remaining--;if($('tl'))$('tl').textContent=remaining;if(remaining<=0){clearInterval(timer);award(s);confetti();$('sq').innerHTML='<div style="text-align:center"><div class="big">'+s+'</div><p>Time’s up! '+count+' answered.</p></div>';}},1000);m.dataset.timer=timer;}document.addEventListener('click',function(e){var b=e.target.closest('[data-mini]');if(b){var t=b.dataset.mini;if(t==='memory')miniMemory();if(t==='typing')miniTyping();if(t==='speed')miniSpeed();}var bb=e.target.closest('[data-backmini]');if(bb){var mm=$('mini');if(mm.dataset.timer){clearInterval(+mm.dataset.timer);}mm.innerHTML='';}});
+function confetti(){var c=document.createElement('div');c.className='confetti';for(var i=0;i<40;i++){var s=document.createElement('span');s.textContent=['🎉','✨','⭐','🎊'][Math.floor(Math.random()*4)];s.style.left=Math.random()*100+'vw';s.style.animationDelay=Math.random()*0.4+'s';c.appendChild(s)}document.body.appendChild(c);setTimeout(function(){c.remove();},1800)}
+
+// Theme
+var themeBtn=$('themeBtn');function applyTheme(){var d=document.documentElement.getAttribute('data-theme')==='dark';themeBtn.textContent=d?'☀️ Light':'🌙 Dark'}themeBtn.onclick=function(){var d=document.documentElement.getAttribute('data-theme')==='dark';document.documentElement.setAttribute('data-theme',d?'light':'dark');applyTheme();};applyTheme();
+
+// Resources by role
+function renderResources(){var el=$('resroles');if(!el)return;el.innerHTML=K.map(function(k){var r=ROLES[k];return '<div class="card role" style="--c:'+r.c+'"><h3>'+r.e+' '+r.n+'</h3><p class="muted" style="margin:4px 0">Your tools, downloads and learning links.</p><b>Tools (get here)</b><ul style="margin:6px 0;padding-left:18px;font-size:.92rem">'+r.tools.map(function(t){return '<li><a href="'+t.get+'" target="_blank" rel="noopener">'+esc(t.name)+'</a> — '+esc(t.what)+'</li>';}).join('')+'</ul><b>Videos</b><ul style="margin:6px 0;padding-left:18px;font-size:.92rem">'+r.yt.map(function(y){return '<li>'+lvlTag(y.lvl)+' <a href="'+y.u+'" target="_blank" rel="noopener">'+esc(y.t)+'</a></li>';}).join('')+'</ul><b>Channels</b><p style="margin:4px 0;font-size:.92rem">'+r.ch.map(function(c){return '<a href="'+c[1]+'" target="_blank" rel="noopener">'+esc(c[0])+'</a>';}).join(' · ')+'</p></div>';}).join('');}
+
+// Init
+var attSaveBtn=attSaveStart; if(attSaveBtn) attSaveBtn.onclick=function(){var v=attStart.value; if(v){localStorage.setItem('sq-att-start',v); renderAttendance(); renderDayRoad(); alert('Start date set to '+v+'. All dates and roadmaps will follow this date.');}}; nav();refresh();roadmaps();plan();renderTools();renderResources();renderAttendance();renderDayRoad();
+
+function ld(k,f){try{return JSON.parse(localStorage.getItem(k))||f}catch(e){return f}}
+function sv(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+var AD=window.APP_DATA,CUR=ld('sq-cur',{}),TST=ld('sq-tests',{}),SS=ld('sq-start',{}),HK=ld('sq-hack',[]),TS=null,LQ='',LC='All';
+function fd(s){return new Date(s+'T00:00:00').toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})}
+function sess(){var d=AD.DAY_PLAN;return studyDays().map(function(x,i){x.p=d[i];return x}).filter(function(x){return x.p})}
+function sessCard(x,t){var done=CUR[x.idx];return '<div class="card sess"><h3>Week '+x.p.w+' · '+esc(x.p.title)+'</h3><p class="muted" style="margin:4px 0">'+fd(x.dateStr)+(x.dateStr===t?' (today)':'')+' · '+esc(x.p.track)+' track · tool: '+esc(x.p.tool)+'</p><ul>'+x.p.topics.map(function(a){return '<li>'+esc(a)+'</li>'}).join('')+'</ul><div class="row"><a class="btn" href="'+x.p.video+'" target="_blank" rel="noopener">Watch video</a><button class="btn '+(done?'pri':'')+'" data-cur="'+x.idx+'">'+(done?'✅ Done':'Mark done')+'</button></div></div>'}
+function tgl(id,fn){var e=$(id);e.onclick=function(ev){var b=ev.target.closest('[data-cur]');if(b){CUR[b.dataset.cur]=!CUR[b.dataset.cur];sv('sq-cur',CUR);fn()}}}
+function viewHome(){var S=sess(),t=todayStr(),done=S.filter(function(x){return CUR[x.idx]}).length,today=S.find(function(x){return x.dateStr===t}),next=S.find(function(x){return x.dateStr>t});
+ var past=S.filter(function(x){return x.dateStr<=t}),pres=0;M.forEach(function(m){past.forEach(function(x){if((ATT[m.id]||{})[x.idx]==='present')pres++})});
+ var att=M.length&&past.length?Math.round(pres/(M.length*past.length)*100):0,tk=Object.keys(TST),avg=tk.length?Math.round(tk.reduce(function(a,k){return a+TST[k]},0)/tk.length):0;
+ var tile=function(n,l,c){return '<div class="stat" style="--c:'+c+'"><b>'+n+'</b><span class="muted">'+l+'</span></div>'};
+ var h='<div class="stats">'+tile(done+' / '+S.length,'sessions completed','var(--c-lead)')+tile(att+'%','team attendance so far','var(--c-back)')+tile(masteredCount()+' / '+K.length,'role paths mastered','var(--c-db)')+tile(tk.length?avg+'%':'–','average test score','var(--c-front)')+'</div>';
+ h+=extras();var f=today||next;h+=f?'<h3 style="margin:6px 0">'+(today?'Today’s session':'Next session')+'</h3>'+sessCard(f,t):'<div class="card empty">The 17-week program is finished. Time to enter a hackathon.</div>';
+ h+='<div class="card"><h3 style="margin-bottom:8px">Program phases</h3>'+AD.PHASES.map(function(p){var r=p.weeks.split('-').map(Number),ss=S.filter(function(x){return x.p.w>=r[0]&&x.p.w<=r[1]}),d=ss.filter(function(x){return CUR[x.idx]}).length,pc=ss.length?Math.round(d/ss.length*100):0;return '<div style="margin:10px 0"><b>'+esc(p.name)+'</b> <span class="muted">weeks '+p.weeks+' · '+d+'/'+ss.length+' done</span><div class="bar" style="--c:'+p.color+'"><i style="width:'+pc+'%"></i></div><span class="muted" style="font-size:.9rem">'+esc(p.goal)+'</span></div>'}).join('')+'</div>';
+ var lb=M.map(function(m,i){return {n:label(m,i),r:ROLES[m.role],s:m.score||0}}).sort(function(a,b){return b.s-a.s});
+ h+='<div class="card"><h3 style="margin-bottom:8px">Game leaderboard</h3>'+(lb.length?lb.map(function(x,i){return '<div class="row" style="padding:4px 0"><b>'+(i+1)+'.</b><span>'+x.r.e+' '+esc(x.n)+'</span><span class="badge" style="background:'+x.r.c+';margin-left:auto">'+x.s+' pts</span></div>'}).join(''):'<p class="muted" style="margin:0">Add members in the Team tab, then play practice games to earn points.</p>')+'</div>';
+ $('v-home').innerHTML=h;tgl('v-home',viewHome)}
+var CW=1;
+function viewCurric(){var S=sess(),t=todayStr(),c=S.find(function(x){return x.dateStr>=t});if(c&&!viewCurric.i){CW=c.p.w;viewCurric.i=1}
+ var ws=[];for(var i=1;i<=17;i++)ws.push(i);var ph=AD.PHASES.find(function(p){var r=p.weeks.split('-').map(Number);return CW>=r[0]&&CW<=r[1]});
+ $('v-curric').innerHTML='<div class="card"><h2>17-week curriculum</h2><p class="muted">Three study days a week with a video, a tool and a checklist. Dates follow your attendance start date.</p><div class="row">'+ws.map(function(n){return '<button class="chip '+(n===CW?'on':'')+'" data-w="'+n+'">Wk '+n+'</button>'}).join('')+'</div></div><p class="muted"><b>'+esc(ph.name)+'</b> — '+esc(ph.goal)+'</p>'+S.filter(function(x){return x.p.w===CW}).map(function(x){return sessCard(x,t)}).join('');
+ $('v-curric').onclick=function(e){var b=e.target.closest('[data-w]');if(b){CW=+b.dataset.w;viewCurric();return}var d=e.target.closest('[data-cur]');if(d){CUR[d.dataset.cur]=!CUR[d.dataset.cur];sv('sq-cur',CUR);viewCurric()}}}
+function viewTests(){var el=$('v-tests');
+ if(!TS){el.innerHTML='<div class="card"><h2>Module tests</h2><p class="muted">Take a short test after each module. Your best score is saved.</p></div><div class="grid">'+AD.TESTS.map(function(t){var b=TST[t.id];return '<div class="card role" style="--c:var(--c-lead)"><h3>'+esc(t.title)+'</h3><p class="muted">'+t.questions.length+' questions'+(b!==undefined?' · best '+b+'%':'')+'</p><button class="btn pri" data-t="'+t.id+'">'+(b!==undefined?'Retake':'Start')+'</button></div>'}).join('')+'</div>';
+  el.onclick=function(e){var b=e.target.closest('[data-t]');if(b){TS={id:b.dataset.t,a:{},done:0};viewTests()}};return}
+ var t=AD.TESTS.find(function(x){return x.id===TS.id}),h='<div class="card"><h2>'+esc(t.title)+'</h2></div>';
+ t.questions.forEach(function(q,qi){h+='<div class="card"><b>Q'+(qi+1)+'. '+esc(q.q)+'</b>'+q.opts.map(function(o,oi){var c='';if(TS.done)c=oi===q.a?' ok':TS.a[qi]===oi?' bad':'';else if(TS.a[qi]===oi)c=' ok';return '<button class="opt'+c+'" data-q="'+qi+'" data-o="'+oi+'">'+esc(o)+'</button>'}).join('')+'</div>'});
+ var n=Object.keys(TS.a).length;h+=TS.done?'<div class="card"><div class="big">'+TS.pc+'%</div><p class="muted">'+(TS.pc===100?'Perfect. Move to the next module.':TS.pc>=67?'Good. Review the wrong answers, then retake.':'Rewatch this module’s videos in the Curriculum, then retake.')+'</p><button class="btn pri" data-back="1">Back to tests</button></div>':'<div class="row"><button class="btn pri" data-sub="1">Submit ('+n+'/'+t.questions.length+' answered)</button><button class="btn" data-back="1">Cancel</button></div>';
+ el.innerHTML=h;el.onclick=function(e){var b=e.target.closest('button');if(!b)return;if(b.dataset.back){TS=null;return viewTests()}if(b.dataset.q!==undefined&&!TS.done){TS.a[b.dataset.q]=+b.dataset.o;return viewTests()}if(b.dataset.sub){var s=0;t.questions.forEach(function(q,i){if(TS.a[i]===q.a)s++});TS.pc=Math.round(s/t.questions.length*100);TS.done=1;TST[t.id]=Math.max(TST[t.id]||0,TS.pc);sv('sq-tests',TST);if(TS.pc===100)confetti();viewTests()}}}
+var STEPS=[['Set the study start date in the Attendance tab.','attendance'],['Create the 5 team seats and name your members.','team'],['Install VS Code, Git, Node.js and Python (links in the Library tab).','lib'],['Learn in this order: HTML, CSS, JavaScript, then Git.','curric'],['Play one practice game for your role.','games'],['Take the HTML & CSS test.','tests']];
+function viewStart(){var d=STEPS.filter(function(s,i){return SS[i]}).length;
+ $('v-start').innerHTML='<div class="card"><h2>Start here</h2><p class="muted">Six first steps for a team with no coding background. Tick each one when done.</p><div class="bar"><i style="width:'+d/STEPS.length*100+'%"></i></div><b>'+d+' of '+STEPS.length+' done</b></div>'+STEPS.map(function(s,i){return '<div class="card row"><label style="flex:1 1 220px"><input type="checkbox" data-s="'+i+'" '+(SS[i]?'checked':'')+' style="flex:none;min-width:auto;margin-right:8px">'+esc(s[0])+'</label><button class="btn" data-go="'+s[1]+'">Open</button></div>'}).join('');
+ $('v-start').onclick=function(e){var c=e.target.closest('[data-s]');if(c){SS[c.dataset.s]=c.checked;sv('sq-start',SS);viewStart();return}var g=e.target.closest('[data-go]');if(g){var b=document.querySelector('#nav [data-t="'+g.dataset.go+'"]');if(b)b.click()}}}
+function libLists(){var q=LQ.toLowerCase(),A=AD,tl=A.TOOLS.filter(function(t){return !q||(t.name+t.cat+t.purpose).toLowerCase().indexOf(q)>=0}),rs=A.RESOURCES.filter(function(r){return (LC==='All'||r.cat===LC)&&(!q||(r.title+r.cat).toLowerCase().indexOf(q)>=0)});
+ $('libtools').innerHTML=tl.length?tl.map(function(t){return '<div class="card role" style="--c:var(--c-back)"><h3>'+esc(t.name)+' <span class="tag start">'+esc(t.cat)+'</span></h3><p style="margin:4px 0">'+esc(t.purpose)+'</p><p class="muted" style="margin:4px 0"><b>How:</b> '+esc(t.how)+'</p><a href="'+t.link+'" target="_blank" rel="noopener">Download or open</a></div>'}).join(''):'<div class="empty">No tools match.</div>';
+ $('libres').innerHTML=rs.length?rs.map(function(r){return '<div class="card role" style="--c:var(--c-front)"><span class="tag next">'+esc(r.type)+'</span> <span class="muted">'+esc(r.cat)+'</span><p style="margin:6px 0"><a href="'+r.url+'" target="_blank" rel="noopener">'+esc(r.title)+'</a></p></div>'}).join(''):'<div class="empty">No resources match.</div>'}
+function viewLib(){var cats=['All'].concat(AD.RESOURCES.map(function(r){return r.cat}).filter(function(c,i,a){return a.indexOf(c)===i}));
+ $('v-lib').innerHTML='<div class="card"><h2>Library</h2><p class="muted">Search every tool and learning resource in one place.</p><input id="libq" placeholder="Search tools and resources" value="'+esc(LQ)+'" aria-label="Search"><div class="row" id="libc" style="margin-top:10px">'+cats.map(function(c){return '<button class="chip '+(c===LC?'on':'')+'" data-c="'+esc(c)+'">'+esc(c)+'</button>'}).join('')+'</div></div><h3 style="margin:10px 0">Tools</h3><div class="grid" id="libtools"></div><h3 style="margin:14px 0 10px">Resources</h3><div class="grid" id="libres"></div>';
+ $('libq').oninput=function(){LQ=this.value;libLists()};$('libc').onclick=function(e){var b=e.target.closest('[data-c]');if(b){LC=b.dataset.c;viewLib()}};libLists()}
+function viewHack(){var t=todayStr(),L=HK.slice().sort(function(a,b){return a.d<b.d?-1:1});
+ $('v-hack').innerHTML='<div class="card"><h2>Hackathon planner</h2><p class="muted">Track every hackathon you want to enter. Find events on <a href="https://devpost.com/hackathons" target="_blank" rel="noopener">Devpost</a> and <a href="https://mlh.io" target="_blank" rel="noopener">MLH</a>.</p><div class="row"><input id="hn" placeholder="Hackathon name" aria-label="Name"><input id="hd" type="date" aria-label="Date"><input id="hl" placeholder="Link (optional)" aria-label="Link"><button class="btn pri" id="ha">Add</button></div></div>'+(L.length?L.map(function(x){var n=Math.round((new Date(x.d+'T00:00:00')-new Date(t+'T00:00:00'))/864e5);return '<div class="card row"><b style="flex:1 1 200px">'+(x.l?'<a href="'+esc(x.l)+'" target="_blank" rel="noopener">'+esc(x.n)+'</a>':esc(x.n))+'</b><span class="muted">'+fd(x.d)+'</span><span class="badge" style="background:'+(n<0?'var(--mute)':n<30?'var(--c-front)':'var(--c-back)')+'">'+(n<0?'finished':n===0?'today':n+' days left')+'</span><button class="btn" data-rm="'+x.id+'">Remove</button></div>'}).join(''):'<div class="card empty">No hackathons yet. Add the first one you want to enter.</div>');
+ $('ha').onclick=function(){var n=$('hn').value.trim(),d=$('hd').value,l=$('hl').value.trim();if(!n||!d)return alert('Enter a name and a date.');if(l&&!/^https?:\/\//.test(l))l='https://'+l;HK.push({id:Date.now(),n:n,d:d,l:l});sv('sq-hack',HK);viewHack()};
+ $('v-hack').onclick=function(e){var b=e.target.closest('[data-rm]');if(b){HK=HK.filter(function(x){return String(x.id)!==b.dataset.rm});sv('sq-hack',HK);viewHack()}}}
+function viewBackup(){$('v-backup').innerHTML='<div class="card"><h2>Backup and restore</h2><p class="muted">Everything lives in this browser. Download a backup before clearing browser data or switching phones, then restore it on the new device.</p><div class="row"><button class="btn pri" id="bx">Download backup</button><label class="btn">Restore backup<input type="file" id="bi" accept=".json" hidden></label><button class="btn" id="br">Reset all progress</button></div><p class="muted" id="bm" style="margin-bottom:0"></p></div>';
+ var keys=function(){return Object.keys(localStorage).filter(function(k){return k.indexOf('sq-')===0})};
+ $('bx').onclick=function(){var o={};keys().forEach(function(k){o[k]=localStorage.getItem(k)});var a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(o,null,1)],{type:'application/json'}));a.download='study-team-backup-'+todayStr()+'.json';a.click();$('bm').textContent='Backup downloaded.'};
+ $('bi').onchange=function(){var f=this.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var o=JSON.parse(r.result),n=0;Object.keys(o).forEach(function(k){if(k.indexOf('sq-')===0){localStorage.setItem(k,o[k]);n++}});if(!n)throw 0;alert('Restored '+n+' items. The page will reload.');location.reload()}catch(e){$('bm').textContent='This file is not a valid backup.'}};r.readAsText(f)};
+ $('br').onclick=function(){if(confirm('Delete all members, attendance, scores and progress? Download a backup first.')){keys().forEach(function(k){localStorage.removeItem(k)});location.reload()}}}
+
+function extras(){var h='',F=window.FB;if(F.note)h+='<div class="card" style="border-left:6px solid var(--c-front)"><b>Message from your team lead</b><p style="margin:6px 0 0">'+esc(F.note)+'</p></div>';
+ var me=F.me;if(me&&me.tasks&&me.tasks.length)h+='<div class="card"><h3 style="margin-bottom:8px">Tasks from your team lead</h3>'+me.tasks.map(function(t){return '<label class="row" style="padding:3px 0"><input type="checkbox" data-task="'+t.id+'" '+(t.done?'checked':'')+' style="flex:none;min-width:auto"> <span style="'+(t.done?'text-decoration:line-through;opacity:.6':'')+'">'+esc(t.t)+'</span></label>'}).join('')+'</div>';return h}
+function tgl(id,fn){$(id).onclick=function(ev){var b=ev.target.closest('[data-cur]');if(b){CUR[b.dataset.cur]=!CUR[b.dataset.cur];sv('sq-cur',CUR);fn();return}var c=ev.target.closest('[data-task]');if(c)FB.toggleTask(c.dataset.task,c.checked)}}
+function viewAdmin(){if(!window.__ADMIN)return;var F=FB,U=F.users,days=studyDays(),AK=Object.keys(ROLES);
+ var opt=U.map(function(u){return '<option value="'+u.uid+'">'+esc(u.name||u.email)+'</option>'}).join('');
+ var h='<div class="card"><h2>Team lead controls</h2><p class="muted">Everything here updates your teammates’ apps within seconds.</p></div>'
+ +'<div class="card"><h3>Message to everyone</h3><textarea id="adnote" rows="2" style="width:100%">'+esc(F.note||'')+'</textarea><div class="row" style="margin-top:8px"><button class="btn pri" id="adnotebtn">Post message</button></div></div>'
+ +'<div class="card"><h3>Add a member</h3><div class="row"><input id="adn" placeholder="Name"><input id="ade" type="email" placeholder="Email"><input id="adp" placeholder="Password (6+ characters)"><select id="adr">'+AK.map(function(k){return '<option value="'+k+'">'+ROLES[k].n+'</option>'}).join('')+'</select><button class="btn pri" id="adadd">Create login</button></div></div>'
+ +'<div class="card"><h3>Members</h3>'+(U.length?U.map(function(u){return '<div class="row" style="padding:6px 0;border-top:1px solid var(--line)"><b style="flex:1 1 160px">'+esc(u.name||'Unnamed')+'</b><span class="muted">'+esc(u.email||'')+' · '+(ROLES[u.rk]?ROLES[u.rk].n:'')+'</span><button class="btn" data-reset="'+esc(u.email||'')+'">Send password reset</button>'+(u.uid===F.uid?'':'<button class="btn" data-rm="'+u.uid+'">Remove</button>')+'</div>'}).join(''):'<p class="muted">No members yet.</p>')+'</div>'
+ +'<div class="card"><h3>Assign a task</h3><div class="row"><select id="atm">'+opt+'</select><input id="atx" placeholder="Task for this member"><button class="btn pri" id="atadd">Assign</button></div>'+U.map(function(u){return (u.tasks||[]).map(function(t){return '<div class="row" style="padding:4px 0"><span>'+esc(u.name||u.email)+': '+esc(t.t)+(t.done?' ✅':'')+'</span><button class="btn" data-dt="'+u.uid+'|'+t.id+'">Delete</button></div>'}).join('')}).join('')+'</div>'
+ +'<div class="card"><h3>Fix attendance</h3><div class="row"><select id="afm">'+opt+'</select><select id="afd">'+days.map(function(d){return '<option value="'+d.idx+'">Wk '+d.week+' '+d.dayName.slice(0,3)+' '+d.dateStr+'</option>'}).join('')+'</select><select id="afs"><option value="present">Present</option><option value="missed">Missed</option><option value="">Clear</option></select><button class="btn pri" id="afbtn">Apply</button></div></div>';
+ var E=$('v-admin');E.innerHTML=h;E.onclick=async function(e){var b=e.target.closest('button');if(!b)return;try{
+  if(b.id==='adnotebtn')await F.setNote($('adnote').value.trim());
+  else if(b.id==='adadd'){var n=$('adn').value.trim(),em=$('ade').value.trim(),pw=$('adp').value;if(!em||pw.length<6)return alert('Enter an email and a password of 6 or more characters.');await F.addMember(n,em,pw,$('adr').value);alert('Login created. Give this member the app link, their email and this password.')}
+  else if(b.dataset.reset){await F.resetPw(b.dataset.reset);alert('Password reset email sent.')}
+  else if(b.dataset.rm){if(confirm('Remove this member from the app?'))await F.removeMember(b.dataset.rm)}
+  else if(b.id==='atadd'){var t=$('atx').value.trim();if(t)await F.addTask($('atm').value,t)}
+  else if(b.dataset.dt){var p=b.dataset.dt.split('|');await F.delTask(p[0],p[1])}
+  else if(b.id==='afbtn')await F.setAtt($('afm').value,$('afd').value,$('afs').value)
+ }catch(er){alert('Error: '+(er.message||er))}}}
+var VIEWS={home:viewHome,start:viewStart,curric:viewCurric,tests:viewTests,lib:viewLib,hack:viewHack,admin:viewAdmin};
+$('nav').addEventListener('click',function(e){var b=e.target.closest('button');if(b&&VIEWS[b.dataset.t])VIEWS[b.dataset.t]()});
+Object.keys(VIEWS).forEach(function(k){try{VIEWS[k]()}catch(e){}});
+
+</script>
+<script type="module">import {initializeApp} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import {getAuth,onAuthStateChanged,signInWithEmailAndPassword,signOut,sendPasswordResetEmail,createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import {getFirestore,doc,getDoc,getDocs,setDoc,updateDoc,deleteDoc,collection,onSnapshot} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+const ADMIN_EMAIL="cadethasnain131@gmail.com";
+const cfg={apiKey:"AIzaSyD1WruAGbbi18JiwIzyhn8h-K8VCUKkbRQ",authDomain:"study-team-41e17.firebaseapp.com",projectId:"study-team-41e17",storageBucket:"study-team-41e17.firebasestorage.app",messagingSenderId:"1047076385284",appId:"1:1047076385284:web:91d5033870de502055bb51"};
+const app=initializeApp(cfg),auth=getAuth(app),db=getFirestore(app);
+const $=id=>document.getElementById(id),msg=t=>{$('lmsg').textContent=t};
+const st=o=>JSON.stringify(o,(k,v)=>v&&typeof v==='object'&&!Array.isArray(v)?Object.keys(v).sort().reduce((a,x)=>(a[x]=v[x],a),{}):v);
+const blank=(name,email,rk)=>({name,email,rk,score:0,att:{},cur:{},tests:{},daydone:{},prog:{},start:{},hack:[],tasks:[]});
+const origSet=Storage.prototype.setItem;
+let uid,isAdmin=false,started=false,users=[],settings={},lastSig='',lastPush=0,muted=false,memCache={},attCache={},timers={};
+const meRef=()=>doc(db,'users',uid),sRef=()=>doc(db,'settings','main');
+const nice=e=>({'auth/invalid-credential':'Wrong email or password.','auth/invalid-email':'That email address is not valid.','auth/too-many-requests':'Too many tries. Wait a few minutes and try again.','auth/network-request-failed':'No internet connection.','permission-denied':'Permission denied. The Firestore rules are missing or the admin email is wrong.'}[e.code]||e.message||String(e));
+function shim(){
+  const me=users.find(u=>u.uid===uid),list=isAdmin?users:[me];
+  muted=true;
+  Object.keys(localStorage).filter(k=>k.indexOf('sq-')===0).forEach(k=>localStorage.removeItem(k));
+  const put=(k,v)=>origSet.call(localStorage,k,JSON.stringify(v));
+  const mem=list.map(u=>({id:u.uid,name:u.name||'',role:u.rk,score:u.score||0})),att={};
+  list.forEach(u=>att[u.uid]=u.att||{});
+  put('sq-members',mem);put('sq-att',att);put('sq-prog',me.prog||{});put('sq-daydone',me.daydone||{});put('sq-cur',me.cur||{});put('sq-tests',me.tests||{});put('sq-start',me.start||{});put('sq-hack',me.hack||[]);
+  if(settings.start)origSet.call(localStorage,'sq-att-start',settings.start);
+  muted=false;
+  memCache={};mem.forEach(m=>memCache[m.id]={name:m.name,role:m.role,score:m.score});
+  attCache=JSON.parse(JSON.stringify(att));
+  window.FB.me=me;window.FB.users=users;window.FB.note=settings.note||'';
+}
+const FIELD={'sq-prog':'prog','sq-daydone':'daydone','sq-cur':'cur','sq-tests':'tests','sq-start':'start','sq-hack':'hack'};
+async function push(k){
+  const v=JSON.parse(localStorage.getItem(k)||'null');lastPush=Date.now();
+  try{
+    if(k==='sq-att-start'){if(isAdmin&&v)await setDoc(sRef(),{start:v},{merge:true});return}
+    if(k==='sq-members'){
+      if(isAdmin){for(const m of v){const o=memCache[m.id];if(o&&(o.name!==m.name||o.role!==m.role||o.score!==(m.score||0)))await updateDoc(doc(db,'users',m.id),{name:m.name,rk:m.role,score:m.score||0})}}
+      else{const m=v.find(x=>x.id===uid);if(m)await updateDoc(meRef(),{name:m.name,score:m.score||0})}
+      memCache={};v.forEach(m=>memCache[m.id]={name:m.name,role:m.role,score:m.score||0});return}
+    if(k==='sq-att'){
+      for(const id of Object.keys(v)){if((isAdmin||id===uid)&&st(v[id])!==st(attCache[id]||{}))await updateDoc(doc(db,'users',id),{att:v[id]})}
+      attCache=JSON.parse(JSON.stringify(v));return}
+    if(FIELD[k])await updateDoc(meRef(),{[FIELD[k]]:v});
+  }catch(e){console.error(e);alert('Could not save: '+nice(e))}
+}
+Storage.prototype.setItem=function(k,v){origSet.call(this,k,v);if(this===localStorage&&String(k).indexOf('sq-')===0&&!muted){clearTimeout(timers[k]);timers[k]=setTimeout(()=>push(k),700)}};
+let sec=null;
+window.FB={uid:null,me:null,users:[],note:'',
+  async setNote(t){await setDoc(sRef(),{note:t},{merge:true})},
+  async addMember(name,email,pw,rk){
+    sec=sec||initializeApp(cfg,'sec');const a2=getAuth(sec);
+    const c=await createUserWithEmailAndPassword(a2,email,pw);await signOut(a2);
+    await setDoc(doc(db,'users',c.user.uid),blank(name,email.toLowerCase(),rk))},
+  resetPw:e=>sendPasswordResetEmail(auth,e),
+  removeMember:id=>deleteDoc(doc(db,'users',id)),
+  async addTask(id,t){const u=users.find(x=>x.uid===id);await updateDoc(doc(db,'users',id),{tasks:[...(u.tasks||[]),{id:String(Date.now()),t,done:false}]})},
+  async delTask(id,tid){const u=users.find(x=>x.uid===id);await updateDoc(doc(db,'users',id),{tasks:(u.tasks||[]).filter(x=>x.id!==tid)})},
+  async setAtt(id,idx,s){const u=users.find(x=>x.uid===id),a={...(u.att||{})};if(s)a[idx]=s;else delete a[idx];await updateDoc(doc(db,'users',id),{att:a})},
+  async toggleTask(tid,done){const me=users.find(x=>x.uid===uid);await updateDoc(meRef(),{tasks:(me.tasks||[]).map(x=>x.id===tid?{...x,done}:x)})}
+};
+function applyRemote(){
+  if(Date.now()-lastPush<3000)return;
+  const a=document.activeElement;if(a&&/INPUT|TEXTAREA|SELECT/.test(a.tagName))return;
+  const sg=st([users,settings]);if(sg===lastSig)return;lastSig=sg;
+  shim();
+  const g=k=>JSON.parse(localStorage.getItem(k)||'null');
+  window.M=g('sq-members');window.ATT=g('sq-att');window.PR=g('sq-prog');window.DAYDONE=g('sq-daydone');window.CUR=g('sq-cur');window.TST=g('sq-tests');window.SS=g('sq-start');window.HK=g('sq-hack')||[];
+  if(settings.start&&$('attStart'))$('attStart').value=settings.start;
+  try{refresh();roadmaps();renderAttendance();renderDayRoad();const t=document.querySelector('#nav .on');if(t&&VIEWS[t.dataset.t])VIEWS[t.dataset.t]()}catch(e){console.error(e)}
+}
+async function boot(user){
+  uid=user.uid;window.FB.uid=uid;isAdmin=(user.email||'').toLowerCase()===ADMIN_EMAIL.toLowerCase();
+  let me=await getDoc(meRef());
+  if(!me.exists()){
+    if(!isAdmin){msg('Your account is not set up yet. Ask your team lead to add you.');await signOut(auth);return}
+    await setDoc(meRef(),blank('Team Lead',user.email.toLowerCase(),'lead'));
+  }
+  const ss=await getDoc(sRef());settings=ss.exists()?ss.data():{};
+  if(isAdmin){const q=await getDocs(collection(db,'users'));users=q.docs.map(d=>({uid:d.id,...d.data()}))}
+  else{users=[{uid,...(await getDoc(meRef())).data()}]}
+  const own=users.find(u=>u.uid===uid);
+  window.__ADMIN=isAdmin;if(!isAdmin)window.__K=[own.rk];
+  shim();lastSig=st([users,settings]);
+  document.body.classList.add(isAdmin?'admin':'member');
+  $('ubar').innerHTML='<span>'+(own.name||user.email)+' · '+(isAdmin?'Team lead':'Member')+'</span><button class="btn" id="out">Sign out</button>';
+  $('out').onclick=async()=>{await signOut(auth);location.reload()};
+  const sc=document.createElement('script');sc.textContent=$('appjs').textContent;document.body.appendChild(sc);
+  $('auth').hidden=true;$('app').hidden=false;started=true;
+  onSnapshot(sRef(),s=>{if(s.metadata.hasPendingWrites)return;settings=s.exists()?s.data():{};applyRemote()});
+  if(isAdmin)onSnapshot(collection(db,'users'),s=>{if(s.metadata.hasPendingWrites)return;users=s.docs.map(d=>({uid:d.id,...d.data()}));applyRemote()});
+  else onSnapshot(meRef(),s=>{if(s.metadata.hasPendingWrites||!s.exists())return;users=[{uid,...s.data()}];applyRemote()});
+}
+onAuthStateChanged(auth,async u=>{
+  if(!u){$('auth').hidden=false;msg('');return}
+  if(started)return;
+  msg('Loading…');
+  try{await boot(u)}catch(e){console.error(e);msg(nice(e));try{await signOut(auth)}catch(_){}}
+});
+$('lgo').onclick=async()=>{msg('Signing in…');try{await signInWithEmailAndPassword(auth,$('le').value.trim(),$('lp').value)}catch(e){msg(nice(e))}};
+$('lp').onkeydown=e=>{if(e.key==='Enter')$('lgo').click()};
+$('lfg').onclick=async()=>{const e=$('le').value.trim();if(!e)return msg('Type your email first, then click Forgot password.');try{await sendPasswordResetEmail(auth,e);msg('Password reset email sent. Check your inbox and spam folder.')}catch(x){msg(nice(x))}};
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>
